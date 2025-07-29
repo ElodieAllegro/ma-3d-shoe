@@ -293,7 +293,7 @@ footer {
   }
   
   .step:nth-child(odd) {
-    margin-right: 40px;
+    margin-right: 50px;
   }
   
   .step-number {
