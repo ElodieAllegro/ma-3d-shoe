@@ -400,9 +400,9 @@ footer {
 }
 
 .carousel-item img {
-  width: 90%;
+  width: 100%;
   height: 220px;
-  object-fit: cover;
+  
   border-radius: 10px 10px 0 0;
 }
 
