@@ -254,7 +254,9 @@ footer {
 
 /* MOBILE (jusqu'à 767px) */
 @media (max-width: 767px) {
-
+.container{
+  height:80vh;
+}
   #three-container {
     height: 50vh;
     top: 70px;
