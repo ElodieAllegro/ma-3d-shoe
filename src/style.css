@@ -316,21 +316,26 @@ footer {
   }
   
   .carousel-item {
-    width: 180px;
-    height: 180px;
+    width: 250px;
+    height: 250px;
   }
   
   .carousel-item img {
     width: 100%;
-    height: 120px;
+    height: 160px;
   }
   
-  .carousel-item.left {
-    transform: translate(-50%, -50%) translateX(-150px) rotateY(25deg) translateZ(30px) scale(0.8);
-  }
-  
+  /* Mobile : masquer les items latéraux */
+  .carousel-item.left,
   .carousel-item.right {
-    transform: translate(-50%, -50%) translateX(150px) rotateY(-25deg) translateZ(30px) scale(0.8);
+    opacity: 0 !important;
+    visibility: hidden !important;
+    pointer-events: none;
+  }
+  
+  /* Mobile : centrer parfaitement l'item actif */
+  .carousel-item.active {
+    transform: translate(-50%, -50%) translateZ(0) scale(1) !important;
   }
   
   .item-info h4 {

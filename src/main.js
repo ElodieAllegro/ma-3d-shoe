@@ -153,28 +153,32 @@ const totalItems = 5;
 
 function updateCarousel() {
   const items = document.querySelectorAll('.carousel-item');
+  const isMobile = window.innerWidth <= 767;
   
   items.forEach((item, index) => {
     // Retirer toutes les classes
     item.classList.remove('active', 'left', 'right', 'visible');
     
-    // Calculer les positions relatives
-    const leftIndex = (currentIndex - 1 + totalItems) % totalItems;
-    const rightIndex = (currentIndex + 1) % totalItems;
-    
     if (index === currentIndex) {
       // Item central (actif)
       item.classList.add('active');
       item.classList.add('visible');
-    } else if (index === leftIndex) {
-      // Item de gauche
-      item.classList.add('left');
-      item.classList.add('visible');
-    } else if (index === rightIndex) {
-      // Item de droite
-      item.classList.add('right');
-      item.classList.add('visible');
+    } else if (!isMobile) {
+      // Sur desktop/tablette : afficher les items latéraux
+      const leftIndex = (currentIndex - 1 + totalItems) % totalItems;
+      const rightIndex = (currentIndex + 1) % totalItems;
+      
+      if (index === leftIndex) {
+        // Item de gauche
+        item.classList.add('left');
+        item.classList.add('visible');
+      } else if (index === rightIndex) {
+        // Item de droite
+        item.classList.add('right');
+        item.classList.add('visible');
+      }
     }
+    // Sur mobile : seul l'item actif est visible (les autres restent cachés)
   });
 }
 
