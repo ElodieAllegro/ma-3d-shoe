@@ -146,3 +146,32 @@ navToggle.addEventListener('click', () => {
 });
 console.log('test');
 
+// Carrousel 3D
+let currentRotation = 0;
+const totalItems = 5;
+const angleStep = 360 / totalItems;
+
+function rotateCarousel(direction) {
+  currentRotation += direction * angleStep;
+  const carousel = document.querySelector('.carousel-3d');
+  carousel.style.transform = `rotateY(${currentRotation}deg)`;
+  
+  // Mettre à jour l'item actif
+  const items = document.querySelectorAll('.carousel-item');
+  items.forEach((item, index) => {
+    item.classList.remove('active');
+    // Calculer quel item est au centre
+    const itemAngle = (index * angleStep - currentRotation) % 360;
+    if (Math.abs(itemAngle) < angleStep / 2 || Math.abs(itemAngle - 360) < angleStep / 2) {
+      item.classList.add('active');
+    }
+  });
+}
+
+// Auto-rotation du carrousel
+setInterval(() => {
+  rotateCarousel(1);
+}, 4000);
+
+// Rendre la fonction globale pour les boutons
+window.rotateCarousel = rotateCarousel;
