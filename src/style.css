@@ -306,7 +306,7 @@ footer {
   
   .carousel-3d {
     width: 300px;
-    height: 200px;
+    height: 250px;
   }
   
   .carousel-item {
@@ -325,6 +325,7 @@ footer {
   
   .item-info p {
     font-size: 0.7rem;
+    padding: 10px;
   }
 }
 
