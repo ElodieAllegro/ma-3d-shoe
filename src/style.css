@@ -6,6 +6,15 @@ html, body {
   font-family: 'JetBrains Mono', monospace;
    color: white;
 }
+main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  background-color: #000000;
+}
 
 .container {
   display: flex;
