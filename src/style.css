@@ -289,7 +289,7 @@ footer {
   }
   
   .step:nth-child(even) {
-    margin-left: 40px;
+    margin-left: 50px;
   }
   
   .step:nth-child(odd) {
