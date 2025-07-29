@@ -261,7 +261,7 @@ footer {
 }
   #three-container {
     height: 50vh;
-    top: 70px;
+    top: 80px;
   }
   .hero h1 {
     font-size: 40px;
@@ -270,7 +270,7 @@ footer {
     font-size: 20px;
   }
   .btn {
-    top: 60%;
+    top: 80%;
   }
   
   .how-it-works {
@@ -309,7 +309,7 @@ footer {
   }
   
   .carousel-section {
-    padding: 1rem;
+    /* padding: 1rem; */
     margin: 2rem auto;
   }
   
