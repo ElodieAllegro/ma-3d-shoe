@@ -531,7 +531,7 @@ footer {
 /* Contrôles du carrousel */
 .carousel-controls {
   position: absolute;
-  bottom: 0px;
+  bottom: 3px;
   left: 50%;
   transform: translateX(-50%);
   display: flex;
