@@ -336,6 +336,8 @@ footer {
   /* Mobile : centrer parfaitement l'item actif */
   .carousel-item.active {
     transform: translate(-50%, -50%) translateZ(0) scale(1) !important;
+    left: 50% !important;
+    top: 50% !important;
   }
   
   .item-info h4 {
