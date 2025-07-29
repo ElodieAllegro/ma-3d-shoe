@@ -85,6 +85,60 @@ font-size: 60px;
   color: #000;
 }
 
+/* Section Comment ça marche */
+.how-it-works {
+  position: absolute;
+  bottom: 10%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 90%;
+  max-width: 800px;
+  text-align: center;
+  color: white;
+  z-index: 10;
+}
+
+.how-it-works h3 {
+  font-size: 2rem;
+  margin-bottom: 2rem;
+  color: white;
+}
+
+.steps {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 1.5rem;
+  margin-top: 1rem;
+}
+
+.step {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.step-number {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: #00ff04;
+  color: #000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+}
+
+.step p {
+  color: white;
+  font-size: 0.9rem;
+  line-height: 1.4;
+  margin: 0;
+}
+
 /* Menu desktop */
 .nav-menu ul {
   display: flex;
@@ -206,6 +260,31 @@ footer {
   }
   .btn {
     top: 60%;
+  }
+  
+  .how-it-works {
+    bottom: 5%;
+    width: 95%;
+  }
+  
+  .how-it-works h3 {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+  }
+  
+  .steps {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+  }
+  
+  .step-number {
+    width: 40px;
+    height: 40px;
+    font-size: 1.2rem;
+  }
+  
+  .step p {
+    font-size: 0.8rem;
   }
 }
 
