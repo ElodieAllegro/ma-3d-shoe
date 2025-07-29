@@ -372,8 +372,8 @@ footer {
 
 .carousel-3d {
   position: relative;
-  width: 500px;
-  height: 300px;
+  width: 800px;
+  height: 400px;
   margin: 0 auto;
   transform-style: preserve-3d;
   transition: transform 0.8s cubic-bezier(0.4, 0.0, 0.2, 1);
@@ -381,8 +381,8 @@ footer {
 
 .carousel-item {
   position: absolute;
-  width: 200px;
-  height: 200px;
+  width: 220px;
+  height: 220px;
   left: 50%;
   top: 50%;
   transform-origin: center center;
@@ -393,11 +393,13 @@ footer {
   background: rgba(255, 255, 255, 0.1);
   backdrop-filter: blur(10px);
   border: 2px solid rgba(255, 255, 255, 0.2);
+  opacity: 0;
+  visibility: hidden;
 }
 
 .carousel-item img {
   width: 100%;
-  height: 150px;
+  height: 170px;
   object-fit: cover;
   border-radius: 10px 10px 0 0;
 }
@@ -420,35 +422,31 @@ footer {
   margin: 0;
 }
 
-/* Positionnement des items en demi-cercle */
-.carousel-item:nth-child(1) {
-  transform: translate(-50%, -50%) rotateY(0deg) translateZ(250px);
+/* Affichage de 3 items visibles */
+.carousel-item.visible {
+  opacity: 1;
+  visibility: visible;
 }
 
-.carousel-item:nth-child(2) {
-  transform: translate(-50%, -50%) rotateY(72deg) translateZ(250px);
-}
-
-.carousel-item:nth-child(3) {
-  transform: translate(-50%, -50%) rotateY(144deg) translateZ(250px);
-}
-
-.carousel-item:nth-child(4) {
-  transform: translate(-50%, -50%) rotateY(216deg) translateZ(250px);
-}
-
-.carousel-item:nth-child(5) {
-  transform: translate(-50%, -50%) rotateY(288deg) translateZ(250px);
-}
-
-/* Item actif */
+/* Item central (actif) */
 .carousel-item.active {
-  transform: translate(-50%, -50%) scale(1.2) translateZ(300px) !important;
+  transform: translate(-50%, -50%) translateZ(100px) scale(1.1) !important;
   z-index: 10;
   box-shadow: 0 20px 40px rgba(0, 255, 4, 0.3);
   border-color: #00ff04;
 }
 
+/* Item de gauche */
+.carousel-item.left {
+  transform: translate(-50%, -50%) translateX(-280px) rotateY(25deg) translateZ(50px) scale(0.9);
+  z-index: 5;
+}
+
+/* Item de droite */
+.carousel-item.right {
+  transform: translate(-50%, -50%) translateX(280px) rotateY(-25deg) translateZ(50px) scale(0.9);
+  z-index: 5;
+}
 /* Contrôles du carrousel */
 .carousel-controls {
   position: absolute;

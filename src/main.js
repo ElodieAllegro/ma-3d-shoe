@@ -148,25 +148,45 @@ console.log('test');
 
 // Carrousel 3D
 let currentRotation = 0;
+let currentIndex = 0;
 const totalItems = 5;
-const angleStep = 360 / totalItems;
 
-function rotateCarousel(direction) {
-  currentRotation += direction * angleStep;
-  const carousel = document.querySelector('.carousel-3d');
-  carousel.style.transform = `rotateY(${currentRotation}deg)`;
-  
-  // Mettre à jour l'item actif
+function updateCarousel() {
   const items = document.querySelectorAll('.carousel-item');
+  
   items.forEach((item, index) => {
-    item.classList.remove('active');
-    // Calculer quel item est au centre
-    const itemAngle = (index * angleStep - currentRotation) % 360;
-    if (Math.abs(itemAngle) < angleStep / 2 || Math.abs(itemAngle - 360) < angleStep / 2) {
+    // Retirer toutes les classes
+    item.classList.remove('active', 'left', 'right', 'visible');
+    
+    // Calculer les positions relatives
+    const leftIndex = (currentIndex - 1 + totalItems) % totalItems;
+    const rightIndex = (currentIndex + 1) % totalItems;
+    
+    if (index === currentIndex) {
+      // Item central (actif)
       item.classList.add('active');
+      item.classList.add('visible');
+    } else if (index === leftIndex) {
+      // Item de gauche
+      item.classList.add('left');
+      item.classList.add('visible');
+    } else if (index === rightIndex) {
+      // Item de droite
+      item.classList.add('right');
+      item.classList.add('visible');
     }
   });
 }
+
+function rotateCarousel(direction) {
+  currentIndex = (currentIndex + direction + totalItems) % totalItems;
+  updateCarousel();
+}
+
+// Initialiser le carrousel
+setTimeout(() => {
+  updateCarousel();
+}, 100);
 
 // Auto-rotation du carrousel
 setInterval(() => {
@@ -175,3 +195,17 @@ setInterval(() => {
 
 // Rendre la fonction globale pour les boutons
 window.rotateCarousel = rotateCarousel;
+
+// Ajouter les event listeners pour les boutons
+document.addEventListener('DOMContentLoaded', () => {
+  const prevBtn = document.querySelector('.prev-btn');
+  const nextBtn = document.querySelector('.next-btn');
+  
+  if (prevBtn) {
+    prevBtn.addEventListener('click', () => rotateCarousel(-1));
+  }
+  
+  if (nextBtn) {
+    nextBtn.addEventListener('click', () => rotateCarousel(1));
+  }
+});
