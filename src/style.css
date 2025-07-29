@@ -282,8 +282,18 @@ footer {
   }
   
   .steps {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    align-items: center;
+  }
+  
+  .step:nth-child(even) {
+    margin-left: 40px;
+  }
+  
+  .step:nth-child(odd) {
+    margin-right: 40px;
   }
   
   .step-number {
