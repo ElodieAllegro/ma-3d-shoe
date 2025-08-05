@@ -95,11 +95,11 @@ font-size: 60px;
   color: #000;
 }
 
-/* Section Carousel Circulaire */
-.circular-steps {
+/* Section Carousel Circulaire Inspiré */
+.circular-carousel-section {
   position: relative;
   width: 100%;
-  max-width: 900px;
+  max-width: 800px;
   margin: 0 auto;
   padding: 4rem 1rem;
   text-align: center;
@@ -108,170 +108,234 @@ font-size: 60px;
   overflow: hidden;
 }
 
-.circular-steps h3 {
+.circular-carousel-section h3 {
   font-size: 2.5rem;
   margin-bottom: 3rem;
   font-weight: bold;
   color: #000;
 }
 
-.circular-container {
+.carousel-wrapper {
   position: relative;
-  width: 500px;
-  height: 500px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+}
+
+.circular-track {
+  position: relative;
+  width: 600px;
+  height: 600px;
   margin: 0 auto;
 }
 
-.circle-background {
+/* Cercle central avec fond changeant */
+.center-circle {
   position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
+  top: 50%;
+  left: 50%;
+  width: 300px;
+  height: 300px;
+  transform: translate(-50%, -50%);
   border-radius: 50%;
   overflow: hidden;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
 }
 
-.background-layer {
+.center-bg {
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
   opacity: 0;
-  transition: opacity 0.8s ease;
+  transition: all 1s cubic-bezier(0.4, 0, 0.2, 1);
   border-radius: 50%;
+  transform: scale(0.8);
 }
 
-.background-layer.active {
+.center-bg.active {
   opacity: 1;
+  transform: scale(1);
 }
 
-.step-1-bg {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+.step-1-active {
+  background: linear-gradient(135deg, #ff6b6b 0%, #ee5a24 100%);
 }
 
-.step-2-bg {
-  background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+.step-2-active {
+  background: linear-gradient(135deg, #4834d4 0%, #686de0 100%);
 }
 
-.step-3-bg {
-  background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+.step-3-active {
+  background: linear-gradient(135deg, #00d2d3 0%, #54a0ff 100%);
 }
 
-.step-4-bg {
-  background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+.step-4-active {
+  background: linear-gradient(135deg, #5f27cd 0%, #00d2d3 100%);
 }
 
-.circle-steps {
+/* Étapes qui tournent */
+.rotating-steps {
   position: relative;
   width: 100%;
   height: 100%;
+  transition: transform 1s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.circle-step {
+.step-card {
   position: absolute;
-  width: 200px;
-  height: 120px;
-  background: rgba(255, 255, 255, 0.95);
-  border-radius: 20px;
-  padding: 1.5rem;
-  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+  width: 180px;
+  height: 140px;
+  background: rgba(255, 255, 255, 0.9);
   backdrop-filter: blur(10px);
-  border: 2px solid rgba(255, 255, 255, 0.3);
-  transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-  opacity: 0.7;
-  transform: scale(0.9);
+  border-radius: 20px;
+  padding: 1rem;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+  opacity: 0.6;
+  transform: scale(0.85);
   cursor: pointer;
+  text-align: center;
 }
 
-.circle-step.active {
+.step-card.active {
   opacity: 1;
-  transform: scale(1.1);
-  box-shadow: 0 25px 50px rgba(0, 255, 4, 0.4);
+  transform: scale(1.05);
+  box-shadow: 0 20px 40px rgba(0, 255, 4, 0.3);
   border-color: #00ff04;
-  z-index: 10;
+  background: rgba(255, 255, 255, 1);
 }
 
-/* Positionnement des étapes en cercle */
-.circle-step[data-step="1"] {
-  top: 50px;
+/* Positionnement initial des étapes */
+.step-card[data-step="1"] {
+  top: 30px;
   left: 50%;
-  transform: translateX(-50%) scale(0.9);
+  transform: translateX(-50%) scale(0.85);
 }
 
-.circle-step[data-step="2"] {
+.step-card[data-step="2"] {
   top: 50%;
-  right: 20px;
-  transform: translateY(-50%) scale(0.9);
+  right: 30px;
+  transform: translateY(-50%) scale(0.85);
 }
 
-.circle-step[data-step="3"] {
-  bottom: 50px;
+.step-card[data-step="3"] {
+  bottom: 30px;
   left: 50%;
-  transform: translateX(-50%) scale(0.9);
+  transform: translateX(-50%) scale(0.85);
 }
 
-.circle-step[data-step="4"] {
+.step-card[data-step="4"] {
   top: 50%;
-  left: 20px;
-  transform: translateY(-50%) scale(0.9);
+  left: 30px;
+  transform: translateY(-50%) scale(0.85);
 }
 
-.circle-step.active[data-step="1"] {
-  transform: translateX(-50%) scale(1.1);
+.step-card.active[data-step="1"] {
+  transform: translateX(-50%) scale(1.05);
 }
 
-.circle-step.active[data-step="2"] {
-  transform: translateY(-50%) scale(1.1);
+.step-card.active[data-step="2"] {
+  transform: translateY(-50%) scale(1.05);
 }
 
-.circle-step.active[data-step="3"] {
-  transform: translateX(-50%) scale(1.1);
+.step-card.active[data-step="3"] {
+  transform: translateX(-50%) scale(1.05);
 }
 
-.circle-step.active[data-step="4"] {
-  transform: translateY(-50%) scale(1.1);
+.step-card.active[data-step="4"] {
+  transform: translateY(-50%) scale(1.05);
 }
 
-.step-number {
-  width: 50px;
-  height: 50px;
+.step-icon {
+  width: 40px;
+  height: 40px;
   border-radius: 50%;
   background: linear-gradient(135deg, #00ff04, #00cc03);
   color: #000;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 1.5rem;
+  font-size: 1.2rem;
   font-weight: bold;
-  margin: 0 auto 1rem auto;
-  box-shadow: 0 5px 15px rgba(0, 255, 4, 0.3);
-  transition: all 0.3s ease;
+  margin: 0 auto 0.8rem auto;
+  box-shadow: 0 4px 12px rgba(0, 255, 4, 0.3);
+  transition: all 0.5s ease;
 }
 
-.circle-step.active .step-number {
-  transform: scale(1.1);
-  box-shadow: 0 8px 25px rgba(0, 255, 4, 0.5);
+.step-card.active .step-icon {
+  transform: scale(1.15);
+  box-shadow: 0 6px 20px rgba(0, 255, 4, 0.5);
 }
 
-.step-content h4 {
-  font-size: 1.1rem;
+.step-card h4 {
+  font-size: 1rem;
   font-weight: bold;
-  margin: 0 0 0.5rem 0;
+  margin: 0 0 0.4rem 0;
   color: #000;
 }
 
-.step-content p {
-  font-size: 0.9rem;
-  line-height: 1.6;
+.step-card p {
+  font-size: 0.8rem;
+  line-height: 1.4;
   margin: 0;
   color: #333;
 }
 
-.carousel-navigation {
-  position: absolute;
-  bottom: -80px;
+/* Contrôles */
+.carousel-controls {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  margin-top: 1rem;
+}
+
+.control-btn {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: rgba(0, 255, 4, 0.1);
+  border: 2px solid rgba(0, 255, 4, 0.3);
+  color: #00ff04;
+  font-size: 20px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(10px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.control-btn:hover {
+  background: rgba(0, 255, 4, 0.2);
+  border-color: #00ff04;
+  transform: scale(1.1);
+  box-shadow: 0 8px 20px rgba(0, 255, 4, 0.3);
+}
+
+.step-indicators {
+  display: flex;
+  gap: 0.8rem;
+}
+
+.indicator {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.indicator.active {
+  background: #00ff04;
+  transform: scale(1.2);
+  box-shadow: 0 0 10px rgba(0, 255, 4, 0.5);
+}
   left: 50%;
   transform: translateX(-50%);
   display: flex;
@@ -409,60 +473,76 @@ footer {
 
 /* MOBILE (jusqu'à 767px) */
 @media (max-width: 767px) {
-  .circular-steps {
+  .circular-carousel-section {
     padding: 2rem 1rem;
   }
   
-  .circular-steps h3 {
+  .circular-carousel-section h3 {
     font-size: 1.8rem;
     margin-bottom: 2rem;
   }
   
-  .circular-container {
-    width: 350px;
-    height: 350px;
+  .circular-track {
+    width: 320px;
+    height: 320px;
   }
   
-  .circle-step {
-    width: 150px;
+  .center-circle {
+    width: 180px;
+    height: 180px;
+  }
+  
+  .step-card {
+    width: 120px;
     height: 100px;
-    padding: 1rem;
+    padding: 0.6rem;
   }
   
-  .circle-step[data-step="1"] {
-    top: 30px;
+  .step-card[data-step="1"] {
+    top: 15px;
   }
   
-  .circle-step[data-step="2"] {
+  .step-card[data-step="2"] {
     right: 10px;
   }
   
-  .circle-step[data-step="3"] {
-    bottom: 30px;
+  .step-card[data-step="3"] {
+    bottom: 15px;
   }
   
-  .circle-step[data-step="4"] {
+  .step-card[data-step="4"] {
     left: 10px;
   }
   
-  .step-number {
+  .step-icon {
+    width: 30px;
+    height: 30px;
+    font-size: 1rem;
+    margin-bottom: 0.5rem;
+  }
+  
+  .step-card h4 {
+    font-size: 0.8rem;
+    margin-bottom: 0.3rem;
+  }
+  
+  .step-card p {
+    font-size: 0.7rem;
+  }
+  
+  .control-btn {
     width: 40px;
     height: 40px;
-    font-size: 1.2rem;
+    font-size: 16px;
   }
   
-  .step-content h4 {
-    font-size: 0.9rem;
+  .carousel-controls {
+    gap: 1.5rem;
   }
   
-  .step-content p {
-    font-size: 0.8rem;
-  }
-  
-  .nav-arrow {
-    width: 50px;
-    height: 50px;
-    font-size: 20px;
+  .indicator {
+    width: 10px;
+    height: 10px;
   }
 
 .container{
@@ -604,60 +684,56 @@ footer {
     font-size: 0.85rem;
   }
   
-  .nav-arrow {
-    width: 55px;
-    height: 55px;
-    font-size: 22px;
+  .circular-track {
+    width: 450px;
+    height: 450px;
   }
   
-  .carousel-section {
-    margin: 3rem auto;
-    padding: 1.5rem;
-  }
-  
-  .carousel-section h3 {
-    font-size: 2rem;
-    margin-bottom: 2.5rem;
-  }
-  
-  .carousel-container {
-    height: 350px;
-  }
-  
-  .carousel-3d {
-    width: 600px;
-    height: 350px;
-  }
-  
-  .carousel-item {
+  .center-circle {
     width: 220px;
     height: 220px;
   }
   
-  .carousel-item img {
-    height: 140px;
+  .step-card {
+    width: 150px;
+    height: 120px;
+    padding: 0.8rem;
   }
   
-  .carousel-item.left {
-    transform: translate(-50%, -50%) translateX(-200px) rotateY(25deg) translateZ(40px) scale(0.85);
+  .step-card[data-step="1"] {
+    top: 20px;
   }
   
-  .carousel-item.right {
-    transform: translate(-50%, -50%) translateX(200px) rotateY(-25deg) translateZ(40px) scale(0.85);
+  .step-card[data-step="2"] {
+    right: 20px;
   }
   
-  .item-info h4 {
-    font-size: 1rem;
+  .step-card[data-step="3"] {
+    bottom: 20px;
   }
   
-  .item-info p {
-    font-size: 0.85rem;
+  .step-card[data-step="4"] {
+    left: 20px;
   }
   
-  .carousel-btn {
+  .step-icon {
+    width: 35px;
+    height: 35px;
+    font-size: 1.1rem;
+  }
+  
+  .step-card h4 {
+    font-size: 0.9rem;
+  }
+  
+  .step-card p {
+    font-size: 0.75rem;
+  }
+  
+  .control-btn {
     width: 45px;
     height: 45px;
-    font-size: 20px;
+    font-size: 18px;
   }
 }
 

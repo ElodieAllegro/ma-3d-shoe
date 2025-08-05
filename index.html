@@ -42,48 +42,53 @@
   </section>
     
   <main>
-    <section class="circular-steps">
+    <section class="circular-carousel-section">
       <h3>Comment ça marche ?</h3>
-      <div class="circular-container">
-        <div class="circle-background">
-          <div class="background-layer step-1-bg active"></div>
-          <div class="background-layer step-2-bg"></div>
-          <div class="background-layer step-3-bg"></div>
-          <div class="background-layer step-4-bg"></div>
-        </div>
-        <div class="circle-steps">
-          <div class="circle-step active" data-step="1">
-            <div class="step-number">1</div>
-            <div class="step-content">
+      <div class="carousel-wrapper">
+        <div class="circular-track">
+          <!-- Fond central qui change -->
+          <div class="center-circle">
+            <div class="center-bg step-1-active"></div>
+            <div class="center-bg step-2-active"></div>
+            <div class="center-bg step-3-active"></div>
+            <div class="center-bg step-4-active"></div>
+          </div>
+          
+          <!-- Étapes qui tournent autour -->
+          <div class="rotating-steps" data-rotation="0">
+            <div class="step-card active" data-step="1">
+              <div class="step-icon">1</div>
               <h4>Choix de la sneaker</h4>
               <p>Je choisis la marque de la paire de sneakers</p>
             </div>
-          </div>
-          <div class="circle-step" data-step="2">
-            <div class="step-number">2</div>
-            <div class="step-content">
+            <div class="step-card" data-step="2">
+              <div class="step-icon">2</div>
               <h4>Personnalisation</h4>
               <p>Je choisis la personnalisation</p>
             </div>
-          </div>
-          <div class="circle-step" data-step="3">
-            <div class="step-number">3</div>
-            <div class="step-content">
+            <div class="step-card" data-step="3">
+              <div class="step-icon">3</div>
               <h4>Customisation</h4>
               <p>La paire est confiée à un graffeur qui va customiser la paire</p>
             </div>
-          </div>
-          <div class="circle-step" data-step="4">
-            <div class="step-number">4</div>
-            <div class="step-content">
+            <div class="step-card" data-step="4">
+              <div class="step-icon">4</div>
               <h4>Expédition</h4>
               <p>Elle est expédiée</p>
             </div>
           </div>
         </div>
-        <div class="carousel-navigation">
-          <button class="nav-arrow prev-arrow">‹</button>
-          <button class="nav-arrow next-arrow">›</button>
+        
+        <!-- Contrôles en bas -->
+        <div class="carousel-controls">
+          <button class="control-btn prev-btn">‹</button>
+          <div class="step-indicators">
+            <span class="indicator active" data-step="1"></span>
+            <span class="indicator" data-step="2"></span>
+            <span class="indicator" data-step="3"></span>
+            <span class="indicator" data-step="4"></span>
+          </div>
+          <button class="control-btn next-btn">›</button>
         </div>
       </div>
     </section>
