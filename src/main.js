@@ -91,8 +91,13 @@ new GLTFLoader().load(
   gltf => {
     const model = gltf.scene;
   }
-)
+);
 
+// Fonctions pour le carousel 3D
+function rotateCarousel(direction) {
+  // Logique de rotation du carousel 3D
+  console.log('Rotating carousel:', direction);
+}
 // Auto-rotation du carrousel
 setInterval(() => {
   rotateCarousel(1);
@@ -101,7 +106,15 @@ setInterval(() => {
 // Rendre la fonction globale pour les boutons
 window.rotateCarousel = rotateCarousel;
 
+function rotateBrandSelection(direction) {
+  // Logique de rotation de la sélection de marques
+  console.log('Rotating brand selection:', direction);
+}
 
+function selectBrand(index) {
+  // Logique de sélection de marque
+  console.log('Selecting brand:', index);
+}
 // Ajouter les event listeners pour les boutons
 document.addEventListener('DOMContentLoaded', () => {
   const threeDPrevBtn = document.querySelector('.carousel-section .prev-btn');
