@@ -90,14 +90,108 @@ new GLTFLoader().load(
   'models/AF1.glb',
   gltf => {
     const model = gltf.scene;
-  }
+    if (device === 'mobile') {
+      model.scale.set(0.9, 0.9, 0.9); // ajuste si besoin
+    } else {
+      model.scale.set(1, 1, 1);
+    }
+    // recentrage si besoin
+    model.position.set(0, 0, 0);
+    model.traverse(node => {
+      if (node.isMesh && node.material) {
+        node.material.needsUpdate     = true;
+        node.material.metalnessFactor = 0.3;
+        node.material.roughnessFactor = 0.6;
+      }
+    });
+    scene.add(model);
+  },
+  xhr => console.log(`Chargé ${(xhr.loaded/xhr.total*100).toFixed(1)}%`),
+  err => console.error('Erreur de chargement :', err)
 );
 
-// Fonctions pour le carousel 3D
-function rotateCarousel(direction) {
-  // Logique de rotation du carousel 3D
-  console.log('Rotating carousel:', direction);
+// 7. Resize & adaptation
+window.addEventListener('resize', () => {
+  // 7.1 nouvelle détection device
+  updateDevice();
+
+  // 7.2 adapter caméra si device a changé
+  const newCfg = CAMERA_SETTINGS[device];
+  camera.fov = newCfg.fov;
+  camera.position.set(...newCfg.position);
+  camera.updateProjectionMatrix();
+
+  // 7.3 adapter renderer
+  renderer.setSize(container.clientWidth, container.clientHeight);
+  renderer.setPixelRatio(device === 'mobile' ? 1 : window.devicePixelRatio);
+  setZoomByDevice();
+});
+
+// 8. Boucle d’animation
+(function animate() {
+  requestAnimationFrame(animate);
+  controls.update();
+  renderer.render(scene, camera);
+})();
+const navToggle = document.querySelector('.nav-toggle');
+const navMenu = document.querySelector('.nav-menu');
+
+navToggle.addEventListener('click', () => {
+  navMenu.classList.toggle('active');
+  navToggle.classList.toggle('open');
+  navToggle.setAttribute(
+    'aria-expanded',
+    navMenu.classList.contains('active')
+  );
+});
+console.log('test');
+
+// Carrousel 3D
+let currentRotation = 0;
+let currentIndex = 0;
+const totalItems = 5;
+
+function updateCarousel() {
+  const items = document.querySelectorAll('.carousel-item');
+  const isMobile = window.innerWidth <= 767;
+  
+  items.forEach((item, index) => {
+    // Retirer toutes les classes
+    item.classList.remove('active', 'left', 'right', 'visible');
+    
+    if (index === currentIndex) {
+      // Item central (actif)
+      item.classList.add('active');
+      item.classList.add('visible');
+    } else if (!isMobile) {
+      // Sur desktop/tablette : afficher les items latéraux
+      const leftIndex = (currentIndex - 1 + totalItems) % totalItems;
+      const rightIndex = (currentIndex + 1) % totalItems;
+      
+      if (index === leftIndex) {
+        // Item de gauche
+        item.classList.add('left');
+        item.classList.add('visible');
+      } else if (index === rightIndex) {
+        // Item de droite
+        item.classList.add('right');
+        item.classList.add('visible');
+      }
+    }
+    // Sur mobile : seul l'item actif est visible (les autres restent cachés)
+  });
 }
+
+function rotateCarousel(direction) {
+  currentIndex = (currentIndex + direction + totalItems) % totalItems;
+  updateCarousel();
+}
+
+// Initialiser le carrousel
+setTimeout(() => {
+  updateCarousel();
+}, 100);
+
 // Auto-rotation du carrousel
 setInterval(() => {
   rotateCarousel(1);
@@ -106,43 +200,16 @@ setInterval(() => {
 // Rendre la fonction globale pour les boutons
 window.rotateCarousel = rotateCarousel;
 
-function rotateBrandSelection(direction) {
-  // Logique de rotation de la sélection de marques
-  console.log('Rotating brand selection:', direction);
-}
-
-function selectBrand(index) {
-  // Logique de sélection de marque
-  console.log('Selecting brand:', index);
-}
 // Ajouter les event listeners pour les boutons
 document.addEventListener('DOMContentLoaded', () => {
-  const threeDPrevBtn = document.querySelector('.carousel-section .prev-btn');
-  const threeDNextBtn = document.querySelector('.carousel-section .next-btn');
+  const prevBtn = document.querySelector('.prev-btn');
+  const nextBtn = document.querySelector('.next-btn');
   
-  if (threeDPrevBtn) {
-    threeDPrevBtn.addEventListener('click', () => rotateCarousel(-1));
+  if (prevBtn) {
+    prevBtn.addEventListener('click', () => rotateCarousel(-1));
   }
   
-  if (threeDNextBtn) {
-    threeDNextBtn.addEventListener('click', () => rotateCarousel(1));
+  if (nextBtn) {
+    nextBtn.addEventListener('click', () => rotateCarousel(1));
   }
-  
-  // Event listeners pour le carousel circulaire
-  const brandPrevBtn = document.querySelector('.brand-selection-section .nav-btn.prev-btn');
-  const brandNextBtn = document.querySelector('.brand-selection-section .nav-btn.next-btn');
-  
-  if (brandPrevBtn) {
-    brandPrevBtn.addEventListener('click', () => rotateBrandSelection(-1));
-  }
-  
-  if (brandNextBtn) {
-    brandNextBtn.addEventListener('click', () => rotateBrandSelection(1));
-  }
-  
-  // Clic sur les logos de marques
-  const brandLogos = document.querySelectorAll('.brand-logo');
-  brandLogos.forEach((logo, index) => {
-    logo.addEventListener('click', () => selectBrand(index + 1));
-  });
 });
