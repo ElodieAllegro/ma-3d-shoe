@@ -90,6 +90,8 @@ new GLTFLoader().load(
   'models/AF1.glb',
   gltf => {
     const model = gltf.scene;
+  }
+)
 
 // Auto-rotation du carrousel
 setInterval(() => {
