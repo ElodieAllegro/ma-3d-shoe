@@ -203,37 +203,37 @@ window.rotateCarousel = rotateCarousel;
 
 // Ajouter les event listeners pour les boutons
 document.addEventListener('DOMContentLoaded', () => {
-  const prevBtn = document.querySelector('.prev-btn');
-  const nextBtn = document.querySelector('.next-btn');
+  const threeDPrevBtn = document.querySelector('.carousel-section .prev-btn');
+  const threeDNextBtn = document.querySelector('.carousel-section .next-btn');
   
-  if (prevBtn) {
-    prevBtn.addEventListener('click', () => rotateCarousel(-1));
+  if (threeDPrevBtn) {
+    threeDPrevBtn.addEventListener('click', () => rotateCarousel(-1));
   }
   
-  if (nextBtn) {
-    nextBtn.addEventListener('click', () => rotateCarousel(1));
+  if (threeDNextBtn) {
+    threeDNextBtn.addEventListener('click', () => rotateCarousel(1));
   }
   
   // Event listeners pour le carousel circulaire
-  const prevBtn = document.querySelector('.prev-btn');
-  const nextBtn = document.querySelector('.next-btn');
+  const circularPrevBtn = document.querySelector('.circular-carousel-section .control-btn.prev-btn');
+  const circularNextBtn = document.querySelector('.circular-carousel-section .control-btn.next-btn');
   
-  if (prevBtn) {
-    prevBtn.addEventListener('click', () => rotateSteps(-1));
+  if (circularPrevBtn) {
+    circularPrevBtn.addEventListener('click', () => rotateSteps(-1));
   }
   
-  if (nextBtn) {
-    nextBtn.addEventListener('click', () => rotateSteps(1));
+  if (circularNextBtn) {
+    circularNextBtn.addEventListener('click', () => rotateSteps(1));
   }
   
   // Clic sur les indicateurs
-  const indicators = document.querySelectorAll('.indicator');
+  const indicators = document.querySelectorAll('.circular-carousel-section .indicator');
   indicators.forEach((indicator, index) => {
     indicator.addEventListener('click', () => rotateToStep(index));
   });
   
   // Clic sur les étapes
-  const stepCards = document.querySelectorAll('.step-card');
+  const stepCards = document.querySelectorAll('.circular-carousel-section .step-card');
   stepCards.forEach((step, index) => {
     step.addEventListener('click', () => {
       rotateToStep(index);
