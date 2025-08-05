@@ -215,23 +215,28 @@ document.addEventListener('DOMContentLoaded', () => {
   }
   
   // Event listeners pour le carousel circulaire
-  const prevArrow = document.querySelector('.prev-arrow');
-  const nextArrow = document.querySelector('.next-arrow');
+  const prevBtn = document.querySelector('.prev-btn');
+  const nextBtn = document.querySelector('.next-btn');
   
-  if (prevArrow) {
-    prevArrow.addEventListener('click', () => rotateSteps(-1));
+  if (prevBtn) {
+    prevBtn.addEventListener('click', () => rotateSteps(-1));
   }
   
-  if (nextArrow) {
-    nextArrow.addEventListener('click', () => rotateSteps(1));
+  if (nextBtn) {
+    nextBtn.addEventListener('click', () => rotateSteps(1));
   }
   
-  // Clic sur les étapes pour navigation directe
-  const circleSteps = document.querySelectorAll('.circle-step');
-  circleSteps.forEach((step, index) => {
+  // Clic sur les indicateurs
+  const indicators = document.querySelectorAll('.indicator');
+  indicators.forEach((indicator, index) => {
+    indicator.addEventListener('click', () => rotateToStep(index));
+  });
+  
+  // Clic sur les étapes
+  const stepCards = document.querySelectorAll('.step-card');
+  stepCards.forEach((step, index) => {
     step.addEventListener('click', () => {
-      currentStepIndex = index;
-      updateCircularCarousel();
+      rotateToStep(index);
     });
   });
 });
