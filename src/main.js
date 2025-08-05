@@ -200,6 +200,42 @@ setInterval(() => {
 // Rendre la fonction globale pour les boutons
 window.rotateCarousel = rotateCarousel;
 
+// Carousel circulaire des étapes
+let currentStepIndex = 0;
+const totalSteps = 4;
+
+function updateCircularCarousel() {
+  const steps = document.querySelectorAll('.circle-step');
+  const backgrounds = document.querySelectorAll('.background-layer');
+  
+  // Retirer les classes actives
+  steps.forEach(step => step.classList.remove('active'));
+  backgrounds.forEach(bg => bg.classList.remove('active'));
+  
+  // Ajouter la classe active à l'étape et au fond actuels
+  if (steps[currentStepIndex]) {
+    steps[currentStepIndex].classList.add('active');
+  }
+  if (backgrounds[currentStepIndex]) {
+    backgrounds[currentStepIndex].classList.add('active');
+  }
+}
+
+function rotateSteps(direction) {
+  currentStepIndex = (currentStepIndex + direction + totalSteps) % totalSteps;
+  updateCircularCarousel();
+}
+
+// Auto-rotation des étapes
+setInterval(() => {
+  rotateSteps(1);
+}, 4000);
+
+// Initialiser le carousel circulaire
+setTimeout(() => {
+  updateCircularCarousel();
+}, 100);
+
 // Ajouter les event listeners pour les boutons
 document.addEventListener('DOMContentLoaded', () => {
   const prevBtn = document.querySelector('.prev-btn');
@@ -212,4 +248,25 @@ document.addEventListener('DOMContentLoaded', () => {
   if (nextBtn) {
     nextBtn.addEventListener('click', () => rotateCarousel(1));
   }
+  
+  // Event listeners pour le carousel circulaire
+  const prevArrow = document.querySelector('.prev-arrow');
+  const nextArrow = document.querySelector('.next-arrow');
+  
+  if (prevArrow) {
+    prevArrow.addEventListener('click', () => rotateSteps(-1));
+  }
+  
+  if (nextArrow) {
+    nextArrow.addEventListener('click', () => rotateSteps(1));
+  }
+  
+  // Clic sur les étapes pour navigation directe
+  const circleSteps = document.querySelectorAll('.circle-step');
+  circleSteps.forEach((step, index) => {
+    step.addEventListener('click', () => {
+      currentStepIndex = index;
+      updateCircularCarousel();
+    });
+  });
 });
