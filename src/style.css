@@ -101,10 +101,11 @@ font-size: 60px;
   width: 100%;
   max-width: 800px;
   margin: 0 auto;
-  padding: 2rem 1rem;
+  padding: 2rem 0.5rem;
   text-align: center;
   color: black;
   background-color:white;
+  overflow-x: hidden;
 }
 
 .how-it-works h3 {
@@ -115,8 +116,9 @@ font-size: 60px;
 .steps {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 2rem;
+  gap: 1.5rem;
   margin-top: 2rem;
+  padding: 0 0.5rem;
 }
 
 .step {
@@ -129,6 +131,8 @@ font-size: 60px;
   text-align: center;
   position: relative;
   overflow: hidden;
+  max-width: 100%;
+  box-sizing: border-box;
 }
 
 .step::before {
@@ -311,11 +315,13 @@ footer {
     grid-template-columns: 1fr;
     gap: 1.5rem;
     margin-top: 1.5rem;
+    padding: 0;
   }
   
   .step {
     padding: 1.5rem;
-    margin: 0 1rem;
+    margin: 0 0.5rem;
+    width: calc(100% - 1rem);
   }
   
   .step-number {
