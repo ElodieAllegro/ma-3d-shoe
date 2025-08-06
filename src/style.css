@@ -108,76 +108,60 @@ font-size: 60px;
   overflow-x: hidden;
 }
 
+.how-it-works {
+  position: relative;
+  width: 100vw;
+  height: 80vh;
+  margin: 0 auto;
+  text-align: center;
+  color: black;
+  background-color: white;
+  box-sizing: border-box;
+}
+
 .how-it-works h3 {
   font-size: 2rem;
   margin-bottom: 2rem;
 }
 
-.steps {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 1.5rem;
-  margin-top: 2rem;
-  padding: 0 0.5rem;
-}
-
-.step {
-  background: white;
-  border-radius: 15px;
-  padding: 2rem;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-  border: 2px solid transparent;
-  transition: all 0.3s ease;
-  text-align: center;
+/* Pour la section step-content sur toute la largeur */
+#steps-carousel {
   position: relative;
-  overflow: hidden;
-  max-width: 100%;
-  box-sizing: border-box;
+
 }
 
-.step::before {
-  content: '';
+.carousel-bg-video {
   position: absolute;
   top: 0;
   left: 0;
-  right: 0;
-  height: 4px;
-  background: linear-gradient(90deg, #00ff04, #00cc03);
+  width: 80%;
+  height: 80%;
+  z-index: 0;
+  /* filter: blur(6px) brightness(0.5); */
+  /* border-radius: 20px; */
 }
 
-.step:hover {
-  transform: translateY(-10px) scale(1.02);
-  box-shadow: 0 25px 50px rgba(0, 255, 4, 0.3);
-  border-color: #00ff04;
-  background: linear-gradient(135deg, #ffffff 0%, #f8fff8 100%);
+.step-content {
+  /* position: relative; */
+  display: flex;
+  width: 100vw;
+  height: 70vh;
+  min-height: 180px;
+  z-index: 1;
+  align-items: flex-end;
+  justify-content: flex-end;
 }
 
-.step:hover::before {
-  background: linear-gradient(90deg, #00ff04, #00cc03, #00ff04);
-  background-size: 200% 100%;
-  animation: shimmer 2s infinite;
-}
-
-@keyframes shimmer {
-  0% { background-position: -200% 0; }
-  100% { background-position: 200% 0; }
-}
-
-.step:hover .step-number {
-  transform: rotate(360deg) scale(1.1);
-  background: linear-gradient(135deg, #00ff04, #00cc03, #32ff32);
-  box-shadow: 0 8px 25px rgba(0, 255, 4, 0.5);
-  animation: pulse 1.5s infinite alternate;
-}
-
-@keyframes pulse {
-  0% { box-shadow: 0 8px 25px rgba(0, 255, 4, 0.5); }
-  100% { box-shadow: 0 12px 35px rgba(0, 255, 4, 0.7); }
-}
-
-.step:hover p {
-  color: #000;
-  transform: translateX(5px);
+/* Pour placer step-info en bas à droite de step-content */
+#steps-carousel .step-info {
+  width: 200px;
+  height: 200px;
+  background: rgba(0, 0, 0, 0.7);
+  color: #fff;
+  border-radius: 50%;
+  padding: 1rem 1.5rem;
+  z-index: 2;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
 }
 
 .step-number {
@@ -195,13 +179,34 @@ font-size: 60px;
   box-shadow: 0 5px 15px rgba(0, 255, 4, 0.3);
 }
 
-.step p {
-  font-size: 1rem;
-  line-height: 1.6;
-  margin: 0;
-  color: #333;
-  font-weight: 500;
+.step-controls {
+  position: absolute;
+  bottom: 3px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 20px;
 }
+
+.step-controls button {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.2);
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  color: white;
+  font-size: 24px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(10px);
+}
+
+.step-controls button:hover {
+  background: rgba(0, 255, 4, 0.3);
+  border-color: #00ff04;
+  transform: scale(1.1);
+}
+
 
 /* Menu desktop */
 .nav-menu ul {
