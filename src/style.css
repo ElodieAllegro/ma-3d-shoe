@@ -128,8 +128,8 @@ font-size: 60px;
 #steps-carousel {
   position: relative;
   width: 100%;
-  height: 70vh;
-  min-height: 400px;
+  height: 80vh;
+  min-height: 500px;
 }
 
 .carousel-bg-video {
@@ -147,8 +147,8 @@ font-size: 60px;
 .step-content {
   position: relative;
   width: 100%;
-  height: 70vh;
-  min-height: 400px;
+  height: 80vh;
+  min-height: 500px;
   z-index: 1;
 }
 
