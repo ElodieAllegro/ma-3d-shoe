@@ -142,7 +142,6 @@ font-size: 60px;
 }
 
 .step-content {
-  /* position: relative; */
   display: flex;
   width: 100vw;
   height: 70vh;
