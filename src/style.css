@@ -147,12 +147,14 @@ font-size: 60px;
   height: 70vh;
   min-height: 180px;
   z-index: 1;
-  align-items: flex-end;
-  justify-content: flex-end;
+  position: relative;
 }
 
 /* Pour placer step-info en bas à droite de step-content */
 #steps-carousel .step-info {
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
   width: 200px;
   height: 200px;
   background: rgba(0, 0, 0, 0.7);
