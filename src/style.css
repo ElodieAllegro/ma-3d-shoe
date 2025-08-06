@@ -110,13 +110,16 @@ font-size: 60px;
 
 .how-it-works {
   position: relative;
-  width: 100vw;
+  width: 100%;
+  max-width: 100%;
   height: 80vh;
-  margin: 0 auto;
+  margin: 0;
+  padding: 2rem 0;
   text-align: center;
   color: black;
   background-color: white;
   box-sizing: border-box;
+  overflow-x: hidden;
 }
 
 .how-it-works h3 {
