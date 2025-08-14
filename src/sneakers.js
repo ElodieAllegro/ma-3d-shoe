@@ -152,6 +152,27 @@ function initializeEventListeners() {
       mainImage.src = newSrc;
     });
   });
+
+  // Sélection des accessoires
+  const accessoriesSelect = document.querySelector('.accessories-select');
+  if (accessoriesSelect) {
+    accessoriesSelect.addEventListener('change', function() {
+      customization.accessories = this.value;
+      updatePrice();
+    });
+  }
+
+  // Thumbnails
+  document.querySelectorAll('.thumbnail').forEach(thumb => {
+    thumb.addEventListener('click', function() {
+      document.querySelectorAll('.thumbnail').forEach(t => t.classList.remove('active'));
+      this.classList.add('active');
+      
+      const mainImage = document.getElementById('main-shoe-image');
+      const newSrc = this.querySelector('img').src.replace('w=150', 'w=600');
+      mainImage.src = newSrc;
+    });
+  });
 }
 
 // Sélection de marque
@@ -200,6 +221,9 @@ function selectModel(modelId, modelName, modelImage) {
   if (mainImage) {
     mainImage.src = modelImage;
   }
+  
+  // Mettre à jour les informations du produit
+  updateProductInfo();
   
   // Mettre à jour les informations du produit
   updateProductInfo();
@@ -267,6 +291,13 @@ function updatePrice() {
     totalPrice += 100; // Pattern personnage
   }
   
+  // Supplément motif
+  if (customization.pattern === 'dots' || customization.pattern === 'floral') {
+    totalPrice += 50; // Pattern standard
+  } else if (customization.pattern === 'geometric' || customization.pattern === 'carbon') {
+    totalPrice += 100; // Pattern personnage
+  }
+  
   // Supplément lacets (si pas blanc)
   if (customization.laces !== 'white') {
     totalPrice += 10;
@@ -276,7 +307,6 @@ function updatePrice() {
   if (customization.accessories !== 'none') {
     totalPrice += 25;
   }
-  
   // Mettre à jour l'affichage
   const priceElement = document.getElementById('product-price');
   const headerTotal = document.getElementById('header-total');
@@ -290,6 +320,32 @@ function updatePrice() {
   }
   
   customization.basePrice = totalPrice;
+}
+
+// Mise à jour des informations du produit
+function updateProductInfo() {
+  const brandElement = document.getElementById('product-brand');
+  const modelElement = document.getElementById('product-model');
+  const breadcrumbBrand = document.getElementById('current-brand');
+  const breadcrumbModel = document.getElementById('current-model');
+  
+  if (brandElement) {
+    brandElement.textContent = selectedBrand.charAt(0).toUpperCase() + selectedBrand.slice(1);
+  }
+  
+  if (modelElement) {
+    const modelData = modelsData[selectedBrand]?.find(m => m.id === selectedModel);
+    modelElement.textContent = modelData ? modelData.name.toUpperCase() : 'CHUCK TAYLOR ALL STAR';
+  }
+  
+  if (breadcrumbBrand) {
+    breadcrumbBrand.textContent = selectedBrand.charAt(0).toUpperCase() + selectedBrand.slice(1);
+  }
+  
+  if (breadcrumbModel) {
+    const modelData = modelsData[selectedBrand]?.find(m => m.id === selectedModel);
+    breadcrumbModel.textContent = modelData ? modelData.name : 'Chuck Taylor';
+  }
 }
 
 // Ajouter au panier
