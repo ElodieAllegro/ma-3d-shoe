@@ -318,6 +318,20 @@ function updateSummary() {
   }
 }
 
+// Mise à jour de l'aperçu des couleurs
+function updateColorPreview() {
+  const mainColorPreview = document.getElementById('main-color-preview');
+  const lacesColorPreview = document.getElementById('laces-color-preview');
+  
+  if (mainColorPreview) {
+    mainColorPreview.style.backgroundColor = customization.shoeColor;
+  }
+  
+  if (lacesColorPreview) {
+    lacesColorPreview.style.backgroundColor = customization.lacesColor;
+  }
+}
+
 // Ajouter au panier
 function addToCart() {
   const totalPrice = customization.basePrice + customization.lacesPrice + customization.patternPrice;
