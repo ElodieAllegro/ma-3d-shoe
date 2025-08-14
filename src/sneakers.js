@@ -153,26 +153,6 @@ function initializeEventListeners() {
     });
   });
 
-  // Sélection des accessoires
-  const accessoriesSelect = document.querySelector('.accessories-select');
-  if (accessoriesSelect) {
-    accessoriesSelect.addEventListener('change', function() {
-      customization.accessories = this.value;
-      updatePrice();
-    });
-  }
-
-  // Thumbnails
-  document.querySelectorAll('.thumbnail').forEach(thumb => {
-    thumb.addEventListener('click', function() {
-      document.querySelectorAll('.thumbnail').forEach(t => t.classList.remove('active'));
-      this.classList.add('active');
-      
-      const mainImage = document.getElementById('main-shoe-image');
-      const newSrc = this.querySelector('img').src.replace('w=150', 'w=600');
-      mainImage.src = newSrc;
-    });
-  });
 }
 
 // Sélection de marque
