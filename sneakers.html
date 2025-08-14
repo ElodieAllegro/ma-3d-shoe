@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sneakers - Ma chaussure 3D</title>
+  <link rel="stylesheet" href="./src/sneakers.css">
+  <link rel="icon" href="./assets/favicon.ico" type="image/x-icon">
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+  <header class="header">
+    <a href="/" class="logo">
+      <img src="./assets/logo.avif" alt="Mon logo" />
+    </a>
+    <button class="nav-toggle" aria-expanded="false" aria-label="Ouvrir le menu">
+      <span></span><span></span><span></span>
+    </button>
+    <nav class="nav-menu">
+      <ul>
+        <li><a href="/" class="nav-link">Accueil</a></li>
+        <li><a href="#sneakers" class="nav-link active">Sneakers</a></li>
+        <li><a href="#contact" class="nav-link">Contact</a></li>
+        <li>
+          <a href="" class="panier-link">
+            <img src="./assets/basket.avif" alt="Panier" />
+          </a>
+        </li>
+      </ul>
+    </nav>
+  </header>
+
+  <main class="main-container">
+    <!-- Progress Bar -->
+    <div class="progress-container">
+      <div class="progress-bar">
+        <div class="progress-step active" data-step="1">
+          <div class="step-circle">1</div>
+          <span>Marque</span>
+        </div>
+        <div class="progress-step" data-step="2">
+          <div class="step-circle">2</div>
+          <span>Modèle</span>
+        </div>
+        <div class="progress-step" data-step="3">
+          <div class="step-circle">3</div>
+          <span>Customisation</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Étape 1: Choix de la marque -->
+    <section class="step-section active" id="step-1">
+      <div class="step-header">
+        <h1>Choisissez votre marque</h1>
+        <p>Sélectionnez la marque de sneakers que vous souhaitez customiser</p>
+      </div>
+      
+      <div class="brands-grid">
+        <div class="brand-card" data-brand="nike">
+          <div class="card-image">
+            <img src="https://images.pexels.com/photos/2529148/pexels-photo-2529148.jpeg?auto=compress&cs=tinysrgb&w=400" alt="Nike">
+          </div>
+          <div class="card-content">
+            <h3>Nike</h3>
+            <p>Just Do It</p>
+          </div>
+        </div>
+
+        <div class="brand-card" data-brand="adidas">
+          <div class="card-image">
+            <img src="https://images.pexels.com/photos/1598505/pexels-photo-1598505.jpeg?auto=compress&cs=tinysrgb&w=400" alt="Adidas">
+          </div>
+          <div class="card-content">
+            <h3>Adidas</h3>
+            <p>Impossible is Nothing</p>
+          </div>
+        </div>
+
+        <div class="brand-card" data-brand="converse">
+          <div class="card-image">
+            <img src="https://images.pexels.com/photos/1464625/pexels-photo-1464625.jpeg?auto=compress&cs=tinysrgb&w=400" alt="Converse">
+          </div>
+          <div class="card-content">
+            <h3>Converse</h3>
+            <p>All Star</p>
+          </div>
+        </div>
+
+        <div class="brand-card" data-brand="vans">
+          <div class="card-image">
+            <img src="https://images.pexels.com/photos/1456706/pexels-photo-1456706.jpeg?auto=compress&cs=tinysrgb&w=400" alt="Vans">
+          </div>
+          <div class="card-content">
+            <h3>Vans</h3>
+            <p>Off The Wall</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Étape 2: Choix du modèle -->
+    <section class="step-section" id="step-2">
+      <div class="step-header">
+        <h1>Choisissez votre modèle</h1>
+        <p>Sélectionnez le modèle que vous souhaitez customiser</p>
+        <button class="back-btn" onclick="goToStep(1)">← Retour aux marques</button>
+      </div>
+      
+      <div class="models-grid">
+        <!-- Les modèles seront générés dynamiquement par JavaScript -->
+      </div>
+    </section>
+
+    <!-- Étape 3: Customisation -->
+    <section class="step-section" id="step-3">
+      <div class="step-header">
+        <h1>Customisez votre sneaker</h1>
+        <p>Personnalisez votre paire selon vos goûts</p>
+        <button class="back-btn" onclick="goToStep(2)">← Retour aux modèles</button>
+      </div>
+      
+      <div class="customization-container">
+        <div class="preview-section">
+          <div class="shoe-preview">
+            <img id="shoe-image" src="" alt="Aperçu de la chaussure">
+            <div class="preview-overlay">
+              <div class="color-preview" id="main-color-preview"></div>
+              <div class="laces-preview" id="laces-color-preview"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="customization-panel">
+          <div class="custom-option">
+            <label for="main-color">Couleur principale</label>
+            <div class="color-input-wrapper">
+              <input type="color" id="main-color" value="#000000">
+              <span class="color-label">Noir</span>
+            </div>
+          </div>
+
+          <div class="custom-option">
+            <label for="laces-color">Couleur des lacets</label>
+            <div class="color-input-wrapper">
+              <input type="color" id="laces-color" value="#ffffff">
+              <span class="color-label">Blanc</span>
+            </div>
+          </div>
+
+          <div class="custom-option">
+            <label for="pattern">Motif</label>
+            <select id="pattern">
+              <option value="none">Aucun motif</option>
+              <option value="gucci">Gucci</option>
+              <option value="dragonball">Dragon Ball</option>
+              <option value="galaxy">Galaxy</option>
+              <option value="camo">Camouflage</option>
+            </select>
+          </div>
+
+          <div class="summary-section">
+            <h3>Récapitulatif</h3>
+            <div class="summary-item">
+              <span>Marque:</span>
+              <span id="summary-brand">-</span>
+            </div>
+            <div class="summary-item">
+              <span>Modèle:</span>
+              <span id="summary-model">-</span>
+            </div>
+            <div class="summary-item">
+              <span>Couleur principale:</span>
+              <span id="summary-main-color">Noir</span>
+            </div>
+            <div class="summary-item">
+              <span>Couleur lacets:</span>
+              <span id="summary-laces-color">Blanc</span>
+            </div>
+            <div class="summary-item">
+              <span>Motif:</span>
+              <span id="summary-pattern">Aucun</span>
+            </div>
+          </div>
+
+          <button class="validate-btn" onclick="validateCustomization()">
+            Valider ma création
+          </button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script src="./src/sneakers.js"></script>
+</body>
+</html>
