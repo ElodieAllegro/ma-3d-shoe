@@ -3,10 +3,17 @@ let currentStep = 1;
 let selectedBrand = '';
 let selectedModel = '';
 let customization = {
-  mainColor: '#000000',
+  size: 38,
+  shoeColor: '#000000',
   lacesColor: '#ffffff',
-  pattern: 'none'
+  pattern: 'none',
+  basePrice: 99,
+  lacesPrice: 0,
+  patternPrice: 0
 };
+
+// Panier
+let cart = [];
 
 // Données des modèles par marque
 const modelsData = {
@@ -83,6 +90,7 @@ const colorNames = {
 document.addEventListener('DOMContentLoaded', function() {
   initializeEventListeners();
   updateProgressBar();
+  updateTotalPrice();
 });
 
 // Gestion des événements
@@ -105,33 +113,64 @@ function initializeEventListeners() {
     });
   }
 
-  // Customisation - couleurs
-  const mainColorInput = document.getElementById('main-color');
-  const lacesColorInput = document.getElementById('laces-color');
-  const patternSelect = document.getElementById('pattern');
-
-  if (mainColorInput) {
-    mainColorInput.addEventListener('input', function() {
-      customization.mainColor = this.value;
-      updateColorPreview();
+  // Customisation - pointure
+  const sizeSelect = document.getElementById('shoe-size');
+  if (sizeSelect) {
+    sizeSelect.addEventListener('change', function() {
+      customization.size = parseInt(this.value);
+      updateBasePrice();
       updateSummary();
+      updateTotalPrice();
     });
   }
 
-  if (lacesColorInput) {
-    lacesColorInput.addEventListener('input', function() {
+  // Customisation - couleurs chaussure
+  document.querySelectorAll('#shoe-colors .color-swatch').forEach(swatch => {
+    swatch.addEventListener('click', function() {
+      // Retirer la classe active des autres
+      document.querySelectorAll('#shoe-colors .color-swatch').forEach(s => s.classList.remove('active'));
+      // Ajouter la classe active à celui-ci
+      this.classList.add('active');
+      
+      customization.shoeColor = this.dataset.color;
+      document.getElementById('shoe-color-name').textContent = this.dataset.name;
+      updateSummary();
+    });
+  });
+
+  // Customisation - couleurs lacets
+  document.querySelectorAll('#laces-colors .color-swatch').forEach(swatch => {
+    swatch.addEventListener('click', function() {
+      // Retirer la classe active des autres
+      document.querySelectorAll('#laces-colors .color-swatch').forEach(s => s.classList.remove('active'));
+      // Ajouter la classe active à celui-ci
+      this.classList.add('active');
+      
       customization.lacesColor = this.value;
-      updateColorPreview();
+      customization.lacesPrice = parseInt(this.dataset.price);
+      
+      const priceSuffix = customization.lacesPrice > 0 ? ` (+${customization.lacesPrice}€)` : ' (inclus)';
+      document.getElementById('laces-color-name').textContent = this.dataset.name + priceSuffix;
+      
       updateSummary();
+      updateTotalPrice();
     });
-  }
+  });
 
-  if (patternSelect) {
-    patternSelect.addEventListener('change', function() {
-      customization.pattern = this.value;
+  // Customisation - motifs
+  document.querySelectorAll('#patterns .pattern-swatch').forEach(swatch => {
+    swatch.addEventListener('click', function() {
+      // Retirer la classe active des autres
+      document.querySelectorAll('#patterns .pattern-swatch').forEach(s => s.classList.remove('active'));
+      // Ajouter la classe active à celui-ci
+      this.classList.add('active');
+      
+      customization.pattern = this.dataset.pattern;
+      customization.patternPrice = parseInt(this.dataset.price);
       updateSummary();
+      updateTotalPrice();
     });
-  }
+  });
 }
 
 // Sélection de marque
@@ -233,90 +272,168 @@ function updateProgressBar() {
   });
 }
 
-// Mise à jour de l'aperçu des couleurs
-function updateColorPreview() {
-  const mainColorPreview = document.getElementById('main-color-preview');
-  const lacesColorPreview = document.getElementById('laces-color-preview');
-  
-  if (mainColorPreview) {
-    mainColorPreview.style.backgroundColor = customization.mainColor;
-  }
-  
-  if (lacesColorPreview) {
-    lacesColorPreview.style.backgroundColor = customization.lacesColor;
-  }
-  
-  // Mise à jour des labels de couleur
-  const mainColorLabel = document.querySelector('#main-color + .color-label');
-  const lacesColorLabel = document.querySelector('#laces-color + .color-label');
-  
-  if (mainColorLabel) {
-    mainColorLabel.textContent = getColorName(customization.mainColor);
-  }
-  
-  if (lacesColorLabel) {
-    lacesColorLabel.textContent = getColorName(customization.lacesColor);
-  }
+// Mise à jour du prix de base selon la pointure
+function updateBasePrice() {
+  customization.basePrice = customization.size <= 38 ? 99 : 120;
 }
 
-// Obtenir le nom d'une couleur
-function getColorName(hexColor) {
-  return colorNames[hexColor.toLowerCase()] || hexColor.toUpperCase();
+// Mise à jour du prix total
+function updateTotalPrice() {
+  const totalPrice = customization.basePrice + customization.lacesPrice + customization.patternPrice;
+  document.getElementById('total-price').textContent = `${totalPrice} €`;
+  document.getElementById('summary-total-price').innerHTML = `<strong>${totalPrice} €</strong>`;
 }
 
 // Mise à jour du récapitulatif
 function updateSummary() {
+  const summarySize = document.getElementById('summary-size');
   const summaryBrand = document.getElementById('summary-brand');
   const summaryModel = document.getElementById('summary-model');
-  const summaryMainColor = document.getElementById('summary-main-color');
+  const summaryShoeColor = document.getElementById('summary-shoe-color');
   const summaryLacesColor = document.getElementById('summary-laces-color');
   const summaryPattern = document.getElementById('summary-pattern');
   
+  if (summarySize) summarySize.textContent = customization.size;
   if (summaryBrand) summaryBrand.textContent = selectedBrand || '-';
   if (summaryModel) summaryModel.textContent = selectedModel || '-';
-  if (summaryMainColor) summaryMainColor.textContent = getColorName(customization.mainColor);
-  if (summaryLacesColor) summaryLacesColor.textContent = getColorName(customization.lacesColor);
+  
+  // Couleur chaussure
+  const shoeColorName = document.querySelector('#shoe-colors .color-swatch.active')?.dataset.name || 'Noir';
+  if (summaryShoeColor) summaryShoeColor.textContent = shoeColorName;
+  
+  // Couleur lacets
+  const lacesColorName = document.querySelector('#laces-colors .color-swatch.active')?.dataset.name || 'Blanc';
+  const lacesPrice = customization.lacesPrice;
+  const lacesPriceSuffix = lacesPrice > 0 ? ` (+${lacesPrice}€)` : ' (inclus)';
+  if (summaryLacesColor) summaryLacesColor.textContent = lacesColorName + lacesPriceSuffix;
+  
+  // Motif
   if (summaryPattern) {
     const patternNames = {
       'none': 'Aucun',
-      'gucci': 'Gucci',
-      'dragonball': 'Dragon Ball',
-      'galaxy': 'Galaxy',
-      'camo': 'Camouflage'
+      'standard': 'Standard (+50€)',
+      'character': 'Personnage (+100€)'
     };
     summaryPattern.textContent = patternNames[customization.pattern] || 'Aucun';
   }
 }
 
-// Validation de la customisation
-function validateCustomization() {
+// Ajouter au panier
+function addToCart() {
+  const totalPrice = customization.basePrice + customization.lacesPrice + customization.patternPrice;
+  
   const finalCustomization = {
+    id: Date.now(), // ID unique basé sur le timestamp
     brand: selectedBrand,
     model: selectedModel,
-    mainColor: customization.mainColor,
-    mainColorName: getColorName(customization.mainColor),
+    size: customization.size,
+    shoeColor: customization.shoeColor,
+    shoeColorName: document.querySelector('#shoe-colors .color-swatch.active')?.dataset.name || 'Noir',
     lacesColor: customization.lacesColor,
-    lacesColorName: getColorName(customization.lacesColor),
+    lacesColorName: document.querySelector('#laces-colors .color-swatch.active')?.dataset.name || 'Blanc',
     pattern: customization.pattern,
+    patternName: document.querySelector('#patterns .pattern-swatch.active')?.dataset.name || 'Aucun',
+    basePrice: customization.basePrice,
+    lacesPrice: customization.lacesPrice,
+    patternPrice: customization.patternPrice,
+    totalPrice: totalPrice,
     timestamp: new Date().toISOString()
   };
   
-  console.log('🎨 Customisation validée:', finalCustomization);
+  // Ajouter au panier
+  cart.push(finalCustomization);
+  
+  console.log('🛒 Ajouté au panier:', finalCustomization);
+  console.log('📦 Panier complet:', cart);
   
   // Animation de succès
   const validateBtn = document.querySelector('.validate-btn');
   const originalText = validateBtn.textContent;
   
-  validateBtn.textContent = '✅ Création validée !';
+  validateBtn.textContent = '✅ Ajouté au panier !';
   validateBtn.style.background = 'linear-gradient(135deg, #00cc03, #009902)';
   
   setTimeout(() => {
     validateBtn.textContent = originalText;
     validateBtn.style.background = 'linear-gradient(135deg, #00ff04, #00cc03)';
+    
+    // Ouvrir le panier après l'animation
+    openCart();
   }, 2000);
   
   // Afficher une notification
-  showNotification('Votre création a été validée avec succès !');
+  showNotification('Votre création a été ajoutée au panier !');
+}
+
+// Ouvrir le panier
+function openCart() {
+  const cartModal = document.getElementById('cart-modal');
+  const cartItems = document.getElementById('cart-items');
+  
+  // Vider le contenu actuel
+  cartItems.innerHTML = '';
+  
+  if (cart.length === 0) {
+    cartItems.innerHTML = '<div class="empty-cart">Votre panier est vide</div>';
+  } else {
+    cart.forEach(item => {
+      const cartItem = document.createElement('div');
+      cartItem.className = 'cart-item';
+      cartItem.innerHTML = `
+        <div class="cart-item-info">
+          <h4>${item.brand} ${item.model}</h4>
+          <p>Pointure: ${item.size}</p>
+          <p>Couleur: ${item.shoeColorName}</p>
+          <p>Lacets: ${item.lacetsColorName}</p>
+          <p>Motif: ${item.patternName}</p>
+        </div>
+        <div class="cart-item-price">${item.totalPrice} €</div>
+        <button class="remove-item" onclick="removeFromCart(${item.id})">Supprimer</button>
+      `;
+      cartItems.appendChild(cartItem);
+    });
+  }
+  
+  // Mettre à jour le total
+  const cartTotal = cart.reduce((sum, item) => sum + item.totalPrice, 0);
+  document.getElementById('cart-total-price').textContent = `${cartTotal} €`;
+  
+  // Afficher le modal
+  cartModal.classList.add('active');
+}
+
+// Fermer le panier
+function closeCart() {
+  const cartModal = document.getElementById('cart-modal');
+  cartModal.classList.remove('active');
+}
+
+// Supprimer un article du panier
+function removeFromCart(itemId) {
+  cart = cart.filter(item => item.id !== itemId);
+  openCart(); // Rafraîchir l'affichage du panier
+  showNotification('Article supprimé du panier');
+}
+
+// Commande
+function checkout() {
+  if (cart.length === 0) {
+    showNotification('Votre panier est vide !');
+    return;
+  }
+  
+  const cartTotal = cart.reduce((sum, item) => sum + item.totalPrice, 0);
+  console.log('🛍️ Commande passée:', {
+    items: cart,
+    total: cartTotal,
+    timestamp: new Date().toISOString()
+  });
+  
+  showNotification(`Commande validée ! Total: ${cartTotal} €`);
+  
+  // Vider le panier après commande
+  cart = [];
+  closeCart();
 }
 
 // Afficher une notification

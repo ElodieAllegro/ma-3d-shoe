@@ -116,6 +116,10 @@
     <!-- Étape 3: Customisation -->
     <section class="step-section" id="step-3">
       <div class="step-header">
+        <div class="price-display">
+          <span class="price-label">Prix total :</span>
+          <span class="price-amount" id="total-price">99 €</span>
+        </div>
         <h1>Customisez votre sneaker</h1>
         <p>Personnalisez votre paire selon vos goûts</p>
         <button class="back-btn" onclick="goToStep(2)">← Retour aux modèles</button>
@@ -134,34 +138,70 @@
 
         <div class="customization-panel">
           <div class="custom-option">
-            <label for="main-color">Couleur principale</label>
-            <div class="color-input-wrapper">
-              <input type="color" id="main-color" value="#000000">
-              <span class="color-label">Noir</span>
-            </div>
-          </div>
-
-          <div class="custom-option">
-            <label for="laces-color">Couleur des lacets</label>
-            <div class="color-input-wrapper">
-              <input type="color" id="laces-color" value="#ffffff">
-              <span class="color-label">Blanc</span>
-            </div>
-          </div>
-
-          <div class="custom-option">
-            <label for="pattern">Motif</label>
-            <select id="pattern">
-              <option value="none">Aucun motif</option>
-              <option value="gucci">Gucci</option>
-              <option value="dragonball">Dragon Ball</option>
-              <option value="galaxy">Galaxy</option>
-              <option value="camo">Camouflage</option>
+            <label for="shoe-size">Pointure</label>
+            <select id="shoe-size">
+              <option value="35">35</option>
+              <option value="36">36</option>
+              <option value="37">37</option>
+              <option value="38" selected>38</option>
+              <option value="39">39</option>
+              <option value="40">40</option>
+              <option value="41">41</option>
+              <option value="42">42</option>
+              <option value="43">43</option>
+              <option value="44">44</option>
+              <option value="45">45</option>
+              <option value="46">46</option>
             </select>
+          </div>
+
+          <div class="custom-option">
+            <label>Couleur de la chaussure</label>
+            <div class="color-swatches" id="shoe-colors">
+              <div class="color-swatch active" data-color="#000000" data-name="Noir" style="background-color: #000000;"></div>
+              <div class="color-swatch" data-color="#ffffff" data-name="Blanc" style="background-color: #ffffff; border: 2px solid #ddd;"></div>
+              <div class="color-swatch" data-color="#8B4513" data-name="Marron" style="background-color: #8B4513;"></div>
+            </div>
+            <span class="selected-color-name" id="shoe-color-name">Noir</span>
+          </div>
+
+          <div class="custom-option">
+            <label>Couleur des lacets</label>
+            <div class="color-swatches" id="laces-colors">
+              <div class="color-swatch active" data-color="#ffffff" data-name="Blanc" data-price="0" style="background-color: #ffffff; border: 2px solid #ddd;"></div>
+              <div class="color-swatch" data-color="#000000" data-name="Noir" data-price="10" style="background-color: #000000;"></div>
+              <div class="color-swatch" data-color="#00ff00" data-name="Vert" data-price="10" style="background-color: #00ff00;"></div>
+              <div class="color-swatch" data-color="#0000ff" data-name="Bleu" data-price="10" style="background-color: #0000ff;"></div>
+              <div class="color-swatch" data-color="#ff69b4" data-name="Rose" data-price="10" style="background-color: #ff69b4;"></div>
+              <div class="color-swatch" data-color="#ffff00" data-name="Jaune" data-price="10" style="background-color: #ffff00;"></div>
+            </div>
+            <span class="selected-color-name" id="laces-color-name">Blanc (inclus)</span>
+          </div>
+
+          <div class="custom-option">
+            <label>Motifs (patterns)</label>
+            <div class="pattern-swatches" id="patterns">
+              <div class="pattern-swatch active" data-pattern="none" data-name="Aucun" data-price="0">
+                <div class="pattern-circle" style="background: linear-gradient(45deg, #f0f0f0, #e0e0e0);"></div>
+                <span>Aucun</span>
+              </div>
+              <div class="pattern-swatch" data-pattern="standard" data-name="Standard" data-price="50">
+                <div class="pattern-circle" style="background: linear-gradient(45deg, #ff6b6b, #4ecdc4);"></div>
+                <span>Standard (+50€)</span>
+              </div>
+              <div class="pattern-swatch" data-pattern="character" data-name="Personnage" data-price="100">
+                <div class="pattern-circle" style="background: linear-gradient(45deg, #ffd93d, #ff6b6b, #4ecdc4);"></div>
+                <span>Personnage (+100€)</span>
+              </div>
+            </div>
           </div>
 
           <div class="summary-section">
             <h3>Récapitulatif</h3>
+            <div class="summary-item">
+              <span>Pointure:</span>
+              <span id="summary-size">38</span>
+            </div>
             <div class="summary-item">
               <span>Marque:</span>
               <span id="summary-brand">-</span>
@@ -171,25 +211,51 @@
               <span id="summary-model">-</span>
             </div>
             <div class="summary-item">
-              <span>Couleur principale:</span>
-              <span id="summary-main-color">Noir</span>
+              <span>Couleur chaussure:</span>
+              <span id="summary-shoe-color">Noir</span>
             </div>
             <div class="summary-item">
               <span>Couleur lacets:</span>
-              <span id="summary-laces-color">Blanc</span>
+              <span id="summary-laces-color">Blanc (inclus)</span>
             </div>
             <div class="summary-item">
               <span>Motif:</span>
               <span id="summary-pattern">Aucun</span>
             </div>
+            <div class="summary-item total-price-summary">
+              <span><strong>Prix total:</strong></span>
+              <span id="summary-total-price"><strong>99 €</strong></span>
+            </div>
           </div>
 
-          <button class="validate-btn" onclick="validateCustomization()">
-            Valider ma création
+          <button class="validate-btn" onclick="addToCart()">
+            Ajouter au panier
           </button>
         </div>
       </div>
     </section>
+
+    <!-- Modal Panier -->
+    <div class="cart-modal" id="cart-modal">
+      <div class="cart-content">
+        <div class="cart-header">
+          <h2>Mon Panier</h2>
+          <button class="close-cart" onclick="closeCart()">×</button>
+        </div>
+        <div class="cart-items" id="cart-items">
+          <!-- Les articles seront ajoutés dynamiquement -->
+        </div>
+        <div class="cart-footer">
+          <div class="cart-total">
+            <span>Total: <strong id="cart-total-price">0 €</strong></span>
+          </div>
+          <div class="cart-actions">
+            <button class="btn-secondary" onclick="closeCart()">Continuer mes achats</button>
+            <button class="btn-primary" onclick="checkout()">Commander</button>
+          </div>
+        </div>
+      </div>
+    </div>
   </main>
 
   <script src="./src/sneakers.js"></script>
