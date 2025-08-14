@@ -10,25 +10,26 @@
 </head>
 
 <body style="margin:0">
-  <header class="header">
+    <header class="header">
     <a href="/" class="logo">
-      <img src="./assets/logo.avif" alt="Mon logo" />
+      <img src="./assets/logo.avif" alt="Custom Sneakers" />
+      <span>Custom<br>Sneakers</span>
     </a>
-    <button class="nav-toggle" aria-expanded="false" aria-label="Ouvrir le menu">
-      <span></span><span></span><span></span>
-    </button>
     <nav class="nav-menu">
       <ul>
-        <li><a href="#home" class="nav-link">Accueil</a></li>
-        <li><a href="sneakers.html" class="nav-link">Sneakers</a></li>
-        <li><a href="#contact" class="nav-link">Contact</a></li>
-        <li>
-          <a href="" class="panier-link">
-            <img src="./assets/basket.avif" alt="Panier" />
-          </a>
-        </li>
+        <li><a href="/" class="nav-link">Sneakers</a></li>
+        <li><a href="#" class="nav-link">Réalisations</a></li>
+        <li><a href="#" class="nav-link">Mon compte</a></li>
       </ul>
     </nav>
+    <div class="cart-icon">
+      <img src="./assets/basket.avif" alt="Panier" onclick="openCart()" />
+      <span class="cart-count" id="cart-count">1</span>
+      <div class="cart-total">
+        <span>total</span>
+        <span id="header-total"></span>
+      </div>
+    </div>
   </header>
   
   <section class="container">
