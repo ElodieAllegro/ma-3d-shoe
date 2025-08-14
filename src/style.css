@@ -199,8 +199,13 @@ font-size: 60px;
 }
 
 .nav-menu a:hover,
-.footer-link:hover {
+.nav-menu a.active {
   color: #00ff04 !important; /* ou une autre couleur d'accent si tu veux */
+  background: rgba(0, 255, 4, 0.1);
+}
+
+.footer-link:hover {
+  color: #00ff04 !important;
 }
 footer {
     position: relative;

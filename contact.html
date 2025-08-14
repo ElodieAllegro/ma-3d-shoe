@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact - Ma chaussure 3D</title>
+  <link rel="stylesheet" href="./src/contact.css">
+  <link rel="icon" href="./assets/favicon.ico" type="image/x-icon">
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+  <header class="header">
+    <a href="/" class="logo">
+      <img src="./assets/logo.avif" alt="Mon logo" />
+    </a>
+    <button class="nav-toggle" aria-expanded="false" aria-label="Ouvrir le menu">
+      <span></span><span></span><span></span>
+    </button>
+    <nav class="nav-menu">
+      <ul>
+        <li><a href="/" class="nav-link">Accueil</a></li>
+        <li><a href="sneakers.html" class="nav-link">Sneakers</a></li>
+        <li><a href="contact.html" class="nav-link active">Contact</a></li>
+        <li>
+          <a href="" class="panier-link">
+            <img src="./assets/basket.avif" alt="Panier" />
+          </a>
+        </li>
+      </ul>
+    </nav>
+  </header>
+
+  <main class="main-container">
+    <section class="contact-hero">
+      <div class="hero-content">
+        <h1>Contactez-nous</h1>
+        <p>Une question ? Un projet de customisation ? Nous sommes là pour vous aider !</p>
+      </div>
+    </section>
+
+    <section class="contact-content">
+      <div class="contact-grid">
+        <!-- Formulaire de contact -->
+        <div class="contact-form-section">
+          <div class="form-header">
+            <h2>Envoyez-nous un message</h2>
+            <p>Remplissez le formulaire ci-dessous et nous vous répondrons dans les plus brefs délais.</p>
+          </div>
+          
+          <form class="contact-form" id="contact-form">
+            <div class="form-group">
+              <label for="name">Nom complet *</label>
+              <input type="text" id="name" name="name" required>
+            </div>
+            
+            <div class="form-group">
+              <label for="email">Email *</label>
+              <input type="email" id="email" name="email" required>
+            </div>
+            
+            <div class="form-group">
+              <label for="phone">Téléphone</label>
+              <input type="tel" id="phone" name="phone">
+            </div>
+            
+            <div class="form-group">
+              <label for="subject">Sujet *</label>
+              <select id="subject" name="subject" required>
+                <option value="">Choisissez un sujet</option>
+                <option value="customisation">Projet de customisation</option>
+                <option value="commande">Question sur une commande</option>
+                <option value="technique">Support technique</option>
+                <option value="partenariat">Partenariat</option>
+                <option value="autre">Autre</option>
+              </select>
+            </div>
+            
+            <div class="form-group">
+              <label for="message">Message *</label>
+              <textarea id="message" name="message" rows="6" required placeholder="Décrivez votre projet ou votre question..."></textarea>
+            </div>
+            
+            <button type="submit" class="submit-btn">
+              <span>Envoyer le message</span>
+            </button>
+          </form>
+        </div>
+
+        <!-- Informations de contact -->
+        <div class="contact-info-section">
+          <div class="contact-card">
+            <div class="contact-icon">
+              📧
+            </div>
+            <h3>Email</h3>
+            <p>contact@ma3dshoe.fr</p>
+            <p>support@ma3dshoe.fr</p>
+          </div>
+
+          <div class="contact-card">
+            <div class="contact-icon">
+              📱
+            </div>
+            <h3>Téléphone</h3>
+            <p>+33 1 23 45 67 89</p>
+            <p>Lun-Ven : 9h-18h</p>
+          </div>
+
+          <div class="contact-card">
+            <div class="contact-icon">
+              📍
+            </div>
+            <h3>Adresse</h3>
+            <p>123 Rue de la Customisation</p>
+            <p>75001 Paris, France</p>
+          </div>
+
+          <div class="contact-card">
+            <div class="contact-icon">
+              ⏱️
+            </div>
+            <h3>Délais de réponse</h3>
+            <p>Email : 24h maximum</p>
+            <p>Téléphone : Immédiat</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section FAQ -->
+    <section class="faq-section">
+      <div class="faq-header">
+        <h2>Questions fréquentes</h2>
+        <p>Trouvez rapidement les réponses à vos questions</p>
+      </div>
+      
+      <div class="faq-grid">
+        <div class="faq-item">
+          <div class="faq-question" onclick="toggleFaq(this)">
+            <h4>Combien de temps prend une customisation ?</h4>
+            <span class="faq-toggle">+</span>
+          </div>
+          <div class="faq-answer">
+            <p>Une customisation standard prend entre 7 à 14 jours ouvrés. Pour les personnages ou motifs complexes, comptez 14 à 21 jours.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-question" onclick="toggleFaq(this)">
+            <h4>Puis-je modifier ma commande après validation ?</h4>
+            <span class="faq-toggle">+</span>
+          </div>
+          <div class="faq-answer">
+            <p>Les modifications sont possibles dans les 24h suivant la commande. Passé ce délai, la production commence et les modifications ne sont plus possibles.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-question" onclick="toggleFaq(this)">
+            <h4>Quelles marques acceptez-vous ?</h4>
+            <span class="faq-toggle">+</span>
+          </div>
+          <div class="faq-answer">
+            <p>Nous travaillons avec Nike, Adidas, Converse, Vans et de nombreuses autres marques. Contactez-nous pour vérifier la disponibilité d'un modèle spécifique.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-question" onclick="toggleFaq(this)">
+            <h4>Proposez-vous la livraison internationale ?</h4>
+            <span class="faq-toggle">+</span>
+          </div>
+          <div class="faq-answer">
+            <p>Oui, nous livrons dans toute l'Europe. Les frais de port varient selon la destination. Contactez-nous pour un devis personnalisé.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-content">
+      <a href="/cgv.html" class="footer-link">Conditions générales de vente</a>
+      <span> | </span>
+      <a href="/infos.html" class="footer-link">Infos utiles</a>
+    </div>
+  </footer>
+
+  <script src="./src/contact.js"></script>
+</body>
+</html>
