@@ -12,30 +12,42 @@
 <body>
   <header class="header">
     <a href="/" class="logo">
-      <img src="./assets/logo.avif" alt="Custom Sneakers" />
-      <span>Custom<br>Sneakers</span>
+      <img src="./assets/logo.avif" alt="Mon logo" />
     </a>
+    <button class="nav-toggle" aria-expanded="false" aria-label="Ouvrir le menu">
+      <span></span><span></span><span></span>
+    </button>
     <nav class="nav-menu">
       <ul>
-        <li><a href="/" class="nav-link">Sneakers</a></li>
-        <li><a href="#" class="nav-link">Réalisations</a></li>
-        <li><a href="#" class="nav-link">Mon compte</a></li>
+        <li><a href="/" class="nav-link">Accueil</a></li>
+        <li><a href="#sneakers" class="nav-link active">Sneakers</a></li>
+        <li><a href="#contact" class="nav-link">Contact</a></li>
+        <li>
+          <a href="" class="panier-link">
+            <img src="./assets/basket.avif" alt="Panier" />
+          </a>
+        </li>
       </ul>
     </nav>
-    <div class="cart-icon">
-      <img src="./assets/basket.avif" alt="Panier" onclick="openCart()" />
-      <span class="cart-count" id="cart-count">1</span>
-      <div class="cart-total">
-        <span>total</span>
-        <span id="header-total"></span>
-      </div>
-    </div>
   </header>
 
   <main class="main-container">
-    <!-- Breadcrumb -->
-    <div class="breadcrumb">
-      <span>Sneakers > <span id="current-brand">Converse</span> > <span id="current-model">Chuck Taylor</span></span>
+    <!-- Progress Bar -->
+    <div class="progress-container">
+      <div class="progress-bar">
+        <div class="progress-step active" data-step="1">
+          <div class="step-circle">1</div>
+          <span>Marque</span>
+        </div>
+        <div class="progress-step" data-step="2">
+          <div class="step-circle">2</div>
+          <span>Modèle</span>
+        </div>
+        <div class="progress-step" data-step="3">
+          <div class="step-circle">3</div>
+          <span>Customisation</span>
+        </div>
+      </div>
     </div>
 
     <!-- Étape 1: Choix de la marque -->
@@ -103,198 +115,122 @@
 
     <!-- Étape 3: Customisation -->
     <section class="step-section" id="step-3">
-      <div class="customization-layout">
-        <!-- Galerie d'images à gauche -->
-        <div class="image-gallery">
-          <!-- Logo de la marque en haut -->
-          <div class="brand-logo">
-            <div class="converse-logo">
-              <div class="star">★</div>
-              <div class="arrow">></div>
+      <div class="step-header">
+        <div class="price-display">
+          <span class="price-label">Prix total :</span>
+          <span class="price-amount" id="total-price">99 €</span>
+        </div>
+        <h1>Customisez votre sneaker</h1>
+        <p>Personnalisez votre paire selon vos goûts</p>
+        <button class="back-btn" onclick="goToStep(2)">← Retour aux modèles</button>
+      </div>
+      
+      <div class="customization-container">
+        <div class="preview-section">
+          <div class="shoe-preview">
+            <img id="shoe-image" src="" alt="Aperçu de la chaussure">
+            <div class="preview-overlay">
+              <div class="color-preview" id="main-color-preview"></div>
+              <div class="laces-preview" id="laces-color-preview"></div>
             </div>
-          </div>
-          
-          <!-- Thumbnails à gauche -->
-          <div class="thumbnails">
-            <div class="thumbnail active">
-              <img src="https://images.pexels.com/photos/1464625/pexels-photo-1464625.jpeg?auto=compress&cs=tinysrgb&w=150" alt="Vue 1">
-            </div>
-            <div class="thumbnail">
-              <img src="https://images.pexels.com/photos/1464625/pexels-photo-1464625.jpeg?auto=compress&cs=tinysrgb&w=150" alt="Vue 2">
-            </div>
-            <div class="thumbnail">
-              <img src="https://images.pexels.com/photos/1464625/pexels-photo-1464625.jpeg?auto=compress&cs=tinysrgb&w=150" alt="Vue 3">
-            </div>
-            <div class="thumbnail">
-              <img src="https://images.pexels.com/photos/1464625/pexels-photo-1464625.jpeg?auto=compress&cs=tinysrgb&w=150" alt="Vue 4">
-            </div>
-            <div class="thumbnail">
-              <img src="https://images.pexels.com/photos/1464625/pexels-photo-1464625.jpeg?auto=compress&cs=tinysrgb&w=150" alt="Vue 5">
-            </div>
-            <div class="more-btn">
-              <span>▼</span>
-            </div>
-          </div>
-          
-          <!-- Image principale -->
-          <div class="main-image">
-            <img id="main-shoe-image" src="https://images.pexels.com/photos/1464625/pexels-photo-1464625.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Chaussure principale">
-          </div>
-          <div class="thumbnails">
-            <div class="thumbnail active">
-              <img src="https://images.pexels.com/photos/1464625/pexels-photo-1464625.jpeg?auto=compress&cs=tinysrgb&w=150" alt="Vue 1">
-            </div>
-            <div class="thumbnail">
-              <img src="https://images.pexels.com/photos/1464625/pexels-photo-1464625.jpeg?auto=compress&cs=tinysrgb&w=150" alt="Vue 2">
-            </div>
-            <div class="thumbnail">
-              <img src="https://images.pexels.com/photos/1464625/pexels-photo-1464625.jpeg?auto=compress&cs=tinysrgb&w=150" alt="Vue 3">
-            </div>
-            <div class="thumbnail">
-              <img src="https://images.pexels.com/photos/1464625/pexels-photo-1464625.jpeg?auto=compress&cs=tinysrgb&w=150" alt="Vue 4">
-            </div>
-            <div class="thumbnail">
-              <img src="https://images.pexels.com/photos/1464625/pexels-photo-1464625.jpeg?auto=compress&cs=tinysrgb&w=150" alt="Vue 5">
-            </div>
-            <div class="more-btn">
-              <span>▼</span>
-            </div>
-          </div>
-          
-          <!-- Image principale -->
-          <div class="main-image">
-            <img id="main-shoe-image" src="https://images.pexels.com/photos/1464625/pexels-photo-1464625.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Chaussure principale">
           </div>
         </div>
 
-        <!-- Panel de customisation à droite -->
         <div class="customization-panel">
-          <div class="product-info">
-            <h1 id="product-brand">Converse</h1>
-            <h2 id="product-model">CHUCK TAYLOR ALL STAR</h2>
-            <div class="price">
-              <span id="product-price">100 €</span>
-              <span class="price-suffix">TTC</span>
-            </div>
-            <div class="rating">
-              <span>★★★★</span>
-            </div>
-              <label>Étape 1: Choisissez votre taille</label>
-              <select id="shoe-size" class="size-select">
-                <option value="35">35</option>
-                <option value="36">36</option>
-                <option value="37">37</option>
-                <option value="38" selected>38</option>
-                <option value="39">39</option>
-                <option value="40">40</option>
-                <option value="41">41</option>
-                <option value="42">42</option>
-                <option value="43">43</option>
-                <option value="44">44</option>
-                <option value="45">45</option>
-                <option value="46">46</option>
-              </select>
-            </div>
-
-            <!-- Étape 2: Couleur -->
-            <div class="option-group">
-              <label>Étape 2: Choisissez la couleur</label>
-              <div class="color-options">
-                <button class="color-btn active" data-color="white" style="background: white; border: 2px solid #ddd;">Blanc</button>
-                <button class="color-btn" data-color="black" style="background: black; color: white;">Noir</button>
-              </div>
-            </div>
-
-            <!-- Étape 3: Motif -->
-            <div class="option-group">
-              <label>Étape 3: Choisissez votre motif</label>
-              <div class="pattern-options">
-                <div class="pattern-circle active" data-pattern="none">
-                  <div class="pattern-preview" style="background: linear-gradient(45deg, #f0f0f0, #e0e0e0);"></div>
-                </div>
-                <div class="pattern-circle" data-pattern="dots">
-                  <div class="pattern-preview" style="background: radial-gradient(circle, #4a90e2 20%, transparent 20%), radial-gradient(circle, #4a90e2 20%, transparent 20%); background-size: 10px 10px; background-position: 0 0, 5px 5px;"></div>
-                </div>
-                <div class="pattern-circle" data-pattern="floral">
-          <div class="customization-options">
-            <!-- Étape 1: Taille -->
-            <div class="option-group">
-              <label>Étape 1: Choisissez votre taille</label>
-              <select id="shoe-size" class="size-select">
-                <option value="35">35</option>
-                <option value="36">36</option>
-                <option value="37">37</option>
-                <option value="38" selected>38</option>
-                <option value="39">39</option>
-                <option value="40">40</option>
-                <option value="41">41</option>
-                <option value="42">42</option>
-                <option value="43">43</option>
-                <option value="44">44</option>
-                <option value="45">45</option>
-                <option value="46">46</option>
-              </select>
-                  <div class="pattern-preview" style="background: repeating-linear-gradient(45deg, #333, #333 2px, #666 2px, #666 4px);"></div>
-              </div>
-            <!-- Étape 2: Couleur -->
-            <div class="option-group">
-              <label>Étape 2: Choisissez la couleur</label>
-              <div class="color-options">
-                <button class="color-btn active" data-color="white" style="background: white; border: 2px solid #ddd;">Blanc</button>
-                <button class="color-btn" data-color="black" style="background: black; color: white;">Noir</button>
-              </div>
-                <div class="lace-circle" data-lace="blue" style="background: #2196f3;"></div>
-              </div>
-            <!-- Étape 3: Motif -->
-            <div class="option-group">
-              <label>Étape 3: Choisissez votre motif</label>
-              <div class="pattern-options">
-                <div class="pattern-circle active" data-pattern="none">
-                  <div class="pattern-preview" style="background: linear-gradient(45deg, #f0f0f0, #e0e0e0);"></div>
-                </div>
-                <div class="pattern-circle" data-pattern="dots">
-                  <div class="pattern-preview" style="background: radial-gradient(circle, #4a90e2 20%, transparent 20%), radial-gradient(circle, #4a90e2 20%, transparent 20%); background-size: 10px 10px; background-position: 0 0, 5px 5px;"></div>
-                </div>
-                <div class="pattern-circle" data-pattern="floral">
-                  <div class="pattern-preview" style="background: linear-gradient(45deg, #e74c3c, #f39c12, #e74c3c);"></div>
-                </div>
-                <div class="pattern-circle" data-pattern="geometric">
-                  <div class="pattern-preview" style="background: linear-gradient(45deg, #3498db, #2ecc71);"></div>
-                </div>
-                <div class="pattern-circle" data-pattern="carbon">
-                  <div class="pattern-preview" style="background: repeating-linear-gradient(45deg, #333, #333 2px, #666 2px, #666 4px);"></div>
-                </div>
-            </div>
-
-            <button class="add-to-cart-btn" onclick="addToCart()">
-            <!-- Étape 4: Lacets -->
-            <div class="option-group">
-              <label>Étape 4: Choisissez vos lacets</label>
-              <div class="laces-options">
-                <div class="lace-circle active" data-lace="black" style="background: black;"></div>
-                <div class="lace-circle" data-lace="white" style="background: white; border: 2px solid #ddd;"></div>
-                <div class="lace-circle" data-lace="pink" style="background: #e91e63;"></div>
-                <div class="lace-circle" data-lace="blue" style="background: #2196f3;"></div>
-                <div class="lace-circle" data-lace="green" style="background: #4caf50;"></div>
-              </div>
-            </div>
-
-            <!-- Étape 5: Accessoires -->
-            <div class="option-group">
-              <label>Étape 4: Choisissez vos accessoires</label>
-              <select class="accessories-select">
-                <option value="none">Aucun accessoire</option>
-                <option value="chains">Chaînes</option>
-                <option value="studs">Clous</option>
-                <option value="patches">Patchs</option>
-              </select>
-            </div>
-
-            <!-- Bouton d'ajout au panier -->
-            <button class="add-to-cart-btn" onclick="addToCart()">
-              Ajouter au panier
-            </button>
+          <div class="custom-option">
+            <label for="shoe-size">Pointure</label>
+            <select id="shoe-size">
+              <option value="35">35</option>
+              <option value="36">36</option>
+              <option value="37">37</option>
+              <option value="38" selected>38</option>
+              <option value="39">39</option>
+              <option value="40">40</option>
+              <option value="41">41</option>
+              <option value="42">42</option>
+              <option value="43">43</option>
+              <option value="44">44</option>
+              <option value="45">45</option>
+              <option value="46">46</option>
+            </select>
           </div>
+
+          <div class="custom-option">
+            <label>Couleur de la chaussure</label>
+            <div class="color-swatches" id="shoe-colors">
+              <div class="color-swatch active" data-color="#000000" data-name="Noir" style="background-color: #000000;"></div>
+              <div class="color-swatch" data-color="#ffffff" data-name="Blanc" style="background-color: #ffffff; border: 2px solid #ddd;"></div>
+              <div class="color-swatch" data-color="#8B4513" data-name="Marron" style="background-color: #8B4513;"></div>
+            </div>
+            <span class="selected-color-name" id="shoe-color-name">Noir</span>
+          </div>
+
+          <div class="custom-option">
+            <label>Couleur des lacets</label>
+            <div class="color-swatches" id="laces-colors">
+              <div class="color-swatch active" data-color="#ffffff" data-name="Blanc" data-price="0" style="background-color: #ffffff; border: 2px solid #ddd;"></div>
+              <div class="color-swatch" data-color="#000000" data-name="Noir" data-price="10" style="background-color: #000000;"></div>
+              <div class="color-swatch" data-color="#00ff00" data-name="Vert" data-price="10" style="background-color: #00ff00;"></div>
+              <div class="color-swatch" data-color="#0000ff" data-name="Bleu" data-price="10" style="background-color: #0000ff;"></div>
+              <div class="color-swatch" data-color="#ff69b4" data-name="Rose" data-price="10" style="background-color: #ff69b4;"></div>
+              <div class="color-swatch" data-color="#ffff00" data-name="Jaune" data-price="10" style="background-color: #ffff00;"></div>
+            </div>
+            <span class="selected-color-name" id="laces-color-name">Blanc (inclus)</span>
+          </div>
+
+          <div class="custom-option">
+            <label>Motifs (patterns)</label>
+            <div class="pattern-swatches" id="patterns">
+              <div class="pattern-swatch active" data-pattern="none" data-name="Aucun" data-price="0">
+                <div class="pattern-circle" style="background: linear-gradient(45deg, #f0f0f0, #e0e0e0);"></div>
+                <span>Aucun</span>
+              </div>
+              <div class="pattern-swatch" data-pattern="standard" data-name="Standard" data-price="50">
+                <div class="pattern-circle" style="background: linear-gradient(45deg, #ff6b6b, #4ecdc4);"></div>
+                <span>Standard (+50€)</span>
+              </div>
+              <div class="pattern-swatch" data-pattern="character" data-name="Personnage" data-price="100">
+                <div class="pattern-circle" style="background: linear-gradient(45deg, #ffd93d, #ff6b6b, #4ecdc4);"></div>
+                <span>Personnage (+100€)</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="summary-section">
+            <h3>Récapitulatif</h3>
+            <div class="summary-item">
+              <span>Pointure:</span>
+              <span id="summary-size">38</span>
+            </div>
+            <div class="summary-item">
+              <span>Marque:</span>
+              <span id="summary-brand">-</span>
+            </div>
+            <div class="summary-item">
+              <span>Modèle:</span>
+              <span id="summary-model">-</span>
+            </div>
+            <div class="summary-item">
+              <span>Couleur chaussure:</span>
+              <span id="summary-shoe-color">Noir</span>
+            </div>
+            <div class="summary-item">
+              <span>Couleur lacets:</span>
+              <span id="summary-laces-color">Blanc (inclus)</span>
+            </div>
+            <div class="summary-item">
+              <span>Motif:</span>
+              <span id="summary-pattern">Aucun</span>
+            </div>
+            <div class="summary-item total-price-summary">
+              <span><strong>Prix total:</strong></span>
+              <span id="summary-total-price"><strong>99 €</strong></span>
+            </div>
+          </div>
+
+          <button class="validate-btn" onclick="addToCart()">
+            Ajouter au panier
+          </button>
         </div>
       </div>
     </section>

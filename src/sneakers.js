@@ -1,14 +1,15 @@
 // État global de l'application
 let currentStep = 1;
-let selectedBrand = 'converse';
-let selectedModel = 'chuck-taylor';
+let selectedBrand = '';
+let selectedModel = '';
 let customization = {
   size: 38,
-  color: 'white',
+  shoeColor: '#000000',
+  lacesColor: '#ffffff',
   pattern: 'none',
-  laces: 'black',
-  accessories: 'none',
-  basePrice: 100
+  basePrice: 99,
+  lacesPrice: 0,
+  patternPrice: 0
 };
 
 // Panier
@@ -18,13 +19,11 @@ let cart = [];
 const modelsData = {
   nike: [
     {
-      id: 'air-jordan',
       name: 'Air Jordan',
       image: 'https://images.pexels.com/photos/2529148/pexels-photo-2529148.jpeg?auto=compress&cs=tinysrgb&w=400',
       description: 'Légendaire et iconique'
     },
     {
-      id: 'air-force-one',
       name: 'Air Force One',
       image: 'https://images.pexels.com/photos/1598505/pexels-photo-1598505.jpeg?auto=compress&cs=tinysrgb&w=400',
       description: 'Classique intemporel'
@@ -32,13 +31,11 @@ const modelsData = {
   ],
   adidas: [
     {
-      id: 'stan-smith',
       name: 'Stan Smith',
       image: 'https://images.pexels.com/photos/1464625/pexels-photo-1464625.jpeg?auto=compress&cs=tinysrgb&w=400',
       description: 'Élégance minimaliste'
     },
     {
-      id: 'campus-00',
       name: 'Campus 00',
       image: 'https://images.pexels.com/photos/1456706/pexels-photo-1456706.jpeg?auto=compress&cs=tinysrgb&w=400',
       description: 'Style rétro moderne'
@@ -46,27 +43,23 @@ const modelsData = {
   ],
   converse: [
     {
-      id: 'chuck-taylor',
       name: 'Chuck Taylor',
-      image: 'https://images.pexels.com/photos/1464625/pexels-photo-1464625.jpeg?auto=compress&cs=tinysrgb&w=400',
+      image: 'https://images.pexels.com/photos/2529148/pexels-photo-2529148.jpeg?auto=compress&cs=tinysrgb&w=400',
       description: 'L\'original authentique'
     },
     {
-      id: 'platforms',
-      name: 'Platforms',
+      name: 'Plateforms',
       image: 'https://images.pexels.com/photos/1598505/pexels-photo-1598505.jpeg?auto=compress&cs=tinysrgb&w=400',
       description: 'Hauteur et style'
     }
   ],
   vans: [
     {
-      id: 'slip-on',
       name: 'Slip On',
       image: 'https://images.pexels.com/photos/1464625/pexels-photo-1464625.jpeg?auto=compress&cs=tinysrgb&w=400',
       description: 'Simplicité et confort'
     },
     {
-      id: 'old-school',
       name: 'Old School',
       image: 'https://images.pexels.com/photos/1456706/pexels-photo-1456706.jpeg?auto=compress&cs=tinysrgb&w=400',
       description: 'Skate authentique'
@@ -74,14 +67,30 @@ const modelsData = {
   ]
 };
 
+// Noms des couleurs
+const colorNames = {
+  '#000000': 'Noir',
+  '#ffffff': 'Blanc',
+  '#ff0000': 'Rouge',
+  '#00ff00': 'Vert',
+  '#0000ff': 'Bleu',
+  '#ffff00': 'Jaune',
+  '#ff00ff': 'Magenta',
+  '#00ffff': 'Cyan',
+  '#ffa500': 'Orange',
+  '#800080': 'Violet',
+  '#ffc0cb': 'Rose',
+  '#a52a2a': 'Marron',
+  '#808080': 'Gris',
+  '#000080': 'Bleu marine',
+  '#008000': 'Vert foncé'
+};
+
 // Initialisation
 document.addEventListener('DOMContentLoaded', function() {
   initializeEventListeners();
-  updateProductInfo();
-  updatePrice();
-  
-  // Aller directement à l'étape 3 pour le développement
-  goToStep(3);
+  updateProgressBar();
+  updateTotalPrice();
 });
 
 // Gestion des événements
@@ -94,72 +103,89 @@ function initializeEventListeners() {
     });
   });
 
-  // Sélection de la taille
+  // Navigation mobile
+  const navToggle = document.querySelector('.nav-toggle');
+  const navMenu = document.querySelector('.nav-menu');
+  
+  if (navToggle) {
+    navToggle.addEventListener('click', () => {
+      navMenu.classList.toggle('active');
+    });
+  }
+
+  // Customisation - pointure
   const sizeSelect = document.getElementById('shoe-size');
   if (sizeSelect) {
     sizeSelect.addEventListener('change', function() {
       customization.size = parseInt(this.value);
-      updatePrice();
+      updateBasePrice();
+      updateSummary();
+      updateTotalPrice();
     });
   }
 
-  // Sélection de la couleur
-  document.querySelectorAll('.color-btn').forEach(btn => {
-    btn.addEventListener('click', function() {
-      document.querySelectorAll('.color-btn').forEach(b => b.classList.remove('active'));
-      this.classList.add('active');
-      customization.color = this.dataset.color;
-    });
-  });
-
-  // Sélection du motif
-  document.querySelectorAll('.pattern-circle').forEach(circle => {
-    circle.addEventListener('click', function() {
-      document.querySelectorAll('.pattern-circle').forEach(c => c.classList.remove('active'));
-      this.classList.add('active');
-      customization.pattern = this.dataset.pattern;
-      updatePrice();
-    });
-  });
-
-  // Sélection des lacets
-  document.querySelectorAll('.lace-circle').forEach(circle => {
-    circle.addEventListener('click', function() {
-      document.querySelectorAll('.lace-circle').forEach(c => c.classList.remove('active'));
-      this.classList.add('active');
-      customization.laces = this.dataset.lace;
-      updatePrice();
-    });
-  });
-
-  // Sélection des accessoires
-  const accessoriesSelect = document.querySelector('.accessories-select');
-  if (accessoriesSelect) {
-    accessoriesSelect.addEventListener('change', function() {
-      customization.accessories = this.value;
-      updatePrice();
-    });
-  }
-
-  // Thumbnails
-  document.querySelectorAll('.thumbnail').forEach(thumb => {
-    thumb.addEventListener('click', function() {
-      document.querySelectorAll('.thumbnail').forEach(t => t.classList.remove('active'));
+  // Customisation - couleurs chaussure
+  document.querySelectorAll('#shoe-colors .color-swatch').forEach(swatch => {
+    swatch.addEventListener('click', function() {
+      // Retirer la classe active des autres
+      document.querySelectorAll('#shoe-colors .color-swatch').forEach(s => s.classList.remove('active'));
+      // Ajouter la classe active à celui-ci
       this.classList.add('active');
       
-      const mainImage = document.getElementById('main-shoe-image');
-      const newSrc = this.querySelector('img').src.replace('w=150', 'w=600');
-      mainImage.src = newSrc;
+      customization.shoeColor = this.dataset.color;
+      document.getElementById('shoe-color-name').textContent = this.dataset.name;
+      updateSummary();
     });
   });
 
+  // Customisation - couleurs lacets
+  document.querySelectorAll('#laces-colors .color-swatch').forEach(swatch => {
+    swatch.addEventListener('click', function() {
+      // Retirer la classe active des autres
+      document.querySelectorAll('#laces-colors .color-swatch').forEach(s => s.classList.remove('active'));
+      // Ajouter la classe active à celui-ci
+      this.classList.add('active');
+      
+      customization.lacesColor = this.value;
+      customization.lacesPrice = parseInt(this.dataset.price);
+      
+      const priceSuffix = customization.lacesPrice > 0 ? ` (+${customization.lacesPrice}€)` : ' (inclus)';
+      document.getElementById('laces-color-name').textContent = this.dataset.name + priceSuffix;
+      
+      updateSummary();
+      updateTotalPrice();
+    });
+  });
+
+  // Customisation - motifs
+  document.querySelectorAll('#patterns .pattern-swatch').forEach(swatch => {
+    swatch.addEventListener('click', function() {
+      // Retirer la classe active des autres
+      document.querySelectorAll('#patterns .pattern-swatch').forEach(s => s.classList.remove('active'));
+      // Ajouter la classe active à celui-ci
+      this.classList.add('active');
+      
+      customization.pattern = this.dataset.pattern;
+      customization.patternPrice = parseInt(this.dataset.price);
+      updateSummary();
+      updateTotalPrice();
+    });
+  });
 }
 
 // Sélection de marque
 function selectBrand(brand) {
   selectedBrand = brand;
-  generateModels(brand);
-  goToStep(2);
+  
+  // Animation de fade out
+  const currentSection = document.getElementById('step-1');
+  currentSection.style.opacity = '0';
+  currentSection.style.transform = 'translateY(-20px)';
+  
+  setTimeout(() => {
+    generateModels(brand);
+    goToStep(2);
+  }, 300);
 }
 
 // Génération des modèles
@@ -185,7 +211,7 @@ function generateModels(brand) {
     `;
     
     modelCard.addEventListener('click', () => {
-      selectModel(model.id, model.name, model.image);
+      selectModel(model.name, model.image);
     });
     
     modelsGrid.appendChild(modelCard);
@@ -193,22 +219,26 @@ function generateModels(brand) {
 }
 
 // Sélection de modèle
-function selectModel(modelId, modelName, modelImage) {
-  selectedModel = modelId;
+function selectModel(modelName, modelImage) {
+  selectedModel = modelName;
   
-  // Mettre à jour l'image principale
-  const mainImage = document.getElementById('main-shoe-image');
-  if (mainImage) {
-    mainImage.src = modelImage;
+  // Mettre à jour l'image de prévisualisation
+  const shoeImage = document.getElementById('shoe-image');
+  if (shoeImage) {
+    shoeImage.src = modelImage;
+    shoeImage.alt = `${selectedBrand} ${selectedModel}`;
   }
   
-  // Mettre à jour les informations du produit
-  updateProductInfo();
+  // Animation de transition
+  const currentSection = document.getElementById('step-2');
+  currentSection.style.opacity = '0';
+  currentSection.style.transform = 'translateY(-20px)';
   
-  // Mettre à jour les informations du produit
-  updateProductInfo();
-  
-  goToStep(3);
+  setTimeout(() => {
+    goToStep(3);
+    updateSummary();
+    updateColorPreview();
+  }, 300);
 }
 
 // Navigation entre étapes
@@ -222,157 +252,117 @@ function goToStep(stepNumber) {
   const targetSection = document.getElementById(`step-${stepNumber}`);
   if (targetSection) {
     targetSection.classList.add('active');
+    targetSection.style.opacity = '1';
+    targetSection.style.transform = 'translateY(0)';
   }
   
   currentStep = stepNumber;
+  updateProgressBar();
 }
 
-// Mise à jour des informations du produit
-function updateProductInfo() {
-  const brandElement = document.getElementById('product-brand');
-  const modelElement = document.getElementById('product-model');
-  const breadcrumbBrand = document.getElementById('current-brand');
-  const breadcrumbModel = document.getElementById('current-model');
-  
-  if (brandElement) {
-    brandElement.textContent = selectedBrand.charAt(0).toUpperCase() + selectedBrand.slice(1);
-  }
-  
-  if (modelElement) {
-    const modelData = modelsData[selectedBrand]?.find(m => m.id === selectedModel);
-    modelElement.textContent = modelData ? modelData.name.toUpperCase() : 'CHUCK TAYLOR ALL STAR';
-  }
-  
-  if (breadcrumbBrand) {
-    breadcrumbBrand.textContent = selectedBrand.charAt(0).toUpperCase() + selectedBrand.slice(1);
-  }
-  
-  if (breadcrumbModel) {
-    const modelData = modelsData[selectedBrand]?.find(m => m.id === selectedModel);
-    breadcrumbModel.textContent = modelData ? modelData.name : 'Chuck Taylor';
-  }
+// Mise à jour de la barre de progression
+function updateProgressBar() {
+  document.querySelectorAll('.progress-step').forEach((step, index) => {
+    const stepNumber = index + 1;
+    if (stepNumber <= currentStep) {
+      step.classList.add('active');
+    } else {
+      step.classList.remove('active');
+    }
+  });
 }
 
-// Mise à jour du prix
-function updatePrice() {
-  let totalPrice = customization.basePrice;
-  
-  // Prix selon la taille
-  if (customization.size > 38) {
-    totalPrice = 120;
-  } else {
-    totalPrice = 100;
-  }
-  
-  // Supplément motif
-  if (customization.pattern === 'dots' || customization.pattern === 'floral') {
-    totalPrice += 50; // Pattern standard
-  } else if (customization.pattern === 'geometric' || customization.pattern === 'carbon') {
-    totalPrice += 100; // Pattern personnage
-  }
-  
-  // Supplément motif
-  if (customization.pattern === 'dots' || customization.pattern === 'floral') {
-    totalPrice += 50; // Pattern standard
-  } else if (customization.pattern === 'geometric' || customization.pattern === 'carbon') {
-    totalPrice += 100; // Pattern personnage
-  }
-  
-  // Supplément lacets (si pas blanc)
-  if (customization.laces !== 'white') {
-    totalPrice += 10;
-  }
-  
-  // Supplément accessoires
-  if (customization.accessories !== 'none') {
-    totalPrice += 25;
-  }
-  // Mettre à jour l'affichage
-  const priceElement = document.getElementById('product-price');
-  const headerTotal = document.getElementById('header-total');
-  
-  if (priceElement) {
-    priceElement.textContent = `${totalPrice} €`;
-  }
-  
-  if (headerTotal) {
-    headerTotal.textContent = `${totalPrice}.00$`;
-  }
-  
-  customization.basePrice = totalPrice;
+// Mise à jour du prix de base selon la pointure
+function updateBasePrice() {
+  customization.basePrice = customization.size <= 38 ? 99 : 120;
 }
 
-// Mise à jour des informations du produit
-function updateProductInfo() {
-  const brandElement = document.getElementById('product-brand');
-  const modelElement = document.getElementById('product-model');
-  const breadcrumbBrand = document.getElementById('current-brand');
-  const breadcrumbModel = document.getElementById('current-model');
+// Mise à jour du prix total
+function updateTotalPrice() {
+  const totalPrice = customization.basePrice + customization.lacesPrice + customization.patternPrice;
+  document.getElementById('total-price').textContent = `${totalPrice} €`;
+  document.getElementById('summary-total-price').innerHTML = `<strong>${totalPrice} €</strong>`;
+}
+
+// Mise à jour du récapitulatif
+function updateSummary() {
+  const summarySize = document.getElementById('summary-size');
+  const summaryBrand = document.getElementById('summary-brand');
+  const summaryModel = document.getElementById('summary-model');
+  const summaryShoeColor = document.getElementById('summary-shoe-color');
+  const summaryLacesColor = document.getElementById('summary-laces-color');
+  const summaryPattern = document.getElementById('summary-pattern');
   
-  if (brandElement) {
-    brandElement.textContent = selectedBrand.charAt(0).toUpperCase() + selectedBrand.slice(1);
-  }
+  if (summarySize) summarySize.textContent = customization.size;
+  if (summaryBrand) summaryBrand.textContent = selectedBrand || '-';
+  if (summaryModel) summaryModel.textContent = selectedModel || '-';
   
-  if (modelElement) {
-    const modelData = modelsData[selectedBrand]?.find(m => m.id === selectedModel);
-    modelElement.textContent = modelData ? modelData.name.toUpperCase() : 'CHUCK TAYLOR ALL STAR';
-  }
+  // Couleur chaussure
+  const shoeColorName = document.querySelector('#shoe-colors .color-swatch.active')?.dataset.name || 'Noir';
+  if (summaryShoeColor) summaryShoeColor.textContent = shoeColorName;
   
-  if (breadcrumbBrand) {
-    breadcrumbBrand.textContent = selectedBrand.charAt(0).toUpperCase() + selectedBrand.slice(1);
-  }
+  // Couleur lacets
+  const lacesColorName = document.querySelector('#laces-colors .color-swatch.active')?.dataset.name || 'Blanc';
+  const lacesPrice = customization.lacesPrice;
+  const lacesPriceSuffix = lacesPrice > 0 ? ` (+${lacesPrice}€)` : ' (inclus)';
+  if (summaryLacesColor) summaryLacesColor.textContent = lacesColorName + lacesPriceSuffix;
   
-  if (breadcrumbModel) {
-    const modelData = modelsData[selectedBrand]?.find(m => m.id === selectedModel);
-    breadcrumbModel.textContent = modelData ? modelData.name : 'Chuck Taylor';
+  // Motif
+  if (summaryPattern) {
+    const patternNames = {
+      'none': 'Aucun',
+      'standard': 'Standard (+50€)',
+      'character': 'Personnage (+100€)'
+    };
+    summaryPattern.textContent = patternNames[customization.pattern] || 'Aucun';
   }
 }
 
 // Ajouter au panier
 function addToCart() {
-  const item = {
-    id: Date.now(),
+  const totalPrice = customization.basePrice + customization.lacesPrice + customization.patternPrice;
+  
+  const finalCustomization = {
+    id: Date.now(), // ID unique basé sur le timestamp
     brand: selectedBrand,
     model: selectedModel,
     size: customization.size,
-    color: customization.color,
+    shoeColor: customization.shoeColor,
+    shoeColorName: document.querySelector('#shoe-colors .color-swatch.active')?.dataset.name || 'Noir',
+    lacesColor: customization.lacesColor,
+    lacesColorName: document.querySelector('#laces-colors .color-swatch.active')?.dataset.name || 'Blanc',
     pattern: customization.pattern,
-    laces: customization.laces,
-    accessories: customization.accessories,
-    price: customization.basePrice,
+    patternName: document.querySelector('#patterns .pattern-swatch.active')?.dataset.name || 'Aucun',
+    basePrice: customization.basePrice,
+    lacesPrice: customization.lacesPrice,
+    patternPrice: customization.patternPrice,
+    totalPrice: totalPrice,
     timestamp: new Date().toISOString()
   };
   
-  cart.push(item);
+  // Ajouter au panier
+  cart.push(finalCustomization);
   
-  console.log('🛒 Ajouté au panier:', item);
+  console.log('🛒 Ajouté au panier:', finalCustomization);
   console.log('📦 Panier complet:', cart);
   
-  // Mettre à jour le compteur du panier
-  updateCartCount();
-  
   // Animation de succès
-  const btn = document.querySelector('.add-to-cart-btn');
-  const originalText = btn.textContent;
+  const validateBtn = document.querySelector('.validate-btn');
+  const originalText = validateBtn.textContent;
   
-  btn.textContent = '✅ Ajouté au panier !';
-  btn.style.background = '#28a745';
+  validateBtn.textContent = '✅ Ajouté au panier !';
+  validateBtn.style.background = 'linear-gradient(135deg, #00cc03, #009902)';
   
   setTimeout(() => {
-    btn.textContent = originalText;
-    btn.style.background = '#000';
+    validateBtn.textContent = originalText;
+    validateBtn.style.background = 'linear-gradient(135deg, #00ff04, #00cc03)';
+    
+    // Ouvrir le panier après l'animation
+    openCart();
   }, 2000);
   
   // Afficher une notification
   showNotification('Votre création a été ajoutée au panier !');
-}
-
-// Mettre à jour le compteur du panier
-function updateCartCount() {
-  const cartCount = document.getElementById('cart-count');
-  if (cartCount) {
-    cartCount.textContent = cart.length;
-  }
 }
 
 // Ouvrir le panier
@@ -380,6 +370,7 @@ function openCart() {
   const cartModal = document.getElementById('cart-modal');
   const cartItems = document.getElementById('cart-items');
   
+  // Vider le contenu actuel
   cartItems.innerHTML = '';
   
   if (cart.length === 0) {
@@ -392,11 +383,11 @@ function openCart() {
         <div class="cart-item-info">
           <h4>${item.brand} ${item.model}</h4>
           <p>Pointure: ${item.size}</p>
-          <p>Couleur: ${item.color}</p>
-          <p>Motif: ${item.pattern}</p>
-          <p>Lacets: ${item.laces}</p>
+          <p>Couleur: ${item.shoeColorName}</p>
+          <p>Lacets: ${item.lacetsColorName}</p>
+          <p>Motif: ${item.patternName}</p>
         </div>
-        <div class="cart-item-price">${item.price} €</div>
+        <div class="cart-item-price">${item.totalPrice} €</div>
         <button class="remove-item" onclick="removeFromCart(${item.id})">Supprimer</button>
       `;
       cartItems.appendChild(cartItem);
@@ -404,9 +395,10 @@ function openCart() {
   }
   
   // Mettre à jour le total
-  const cartTotal = cart.reduce((sum, item) => sum + item.price, 0);
+  const cartTotal = cart.reduce((sum, item) => sum + item.totalPrice, 0);
   document.getElementById('cart-total-price').textContent = `${cartTotal} €`;
   
+  // Afficher le modal
   cartModal.classList.add('active');
 }
 
@@ -419,8 +411,7 @@ function closeCart() {
 // Supprimer un article du panier
 function removeFromCart(itemId) {
   cart = cart.filter(item => item.id !== itemId);
-  updateCartCount();
-  openCart(); // Rafraîchir l'affichage
+  openCart(); // Rafraîchir l'affichage du panier
   showNotification('Article supprimé du panier');
 }
 
@@ -431,7 +422,7 @@ function checkout() {
     return;
   }
   
-  const cartTotal = cart.reduce((sum, item) => sum + item.price, 0);
+  const cartTotal = cart.reduce((sum, item) => sum + item.totalPrice, 0);
   console.log('🛍️ Commande passée:', {
     items: cart,
     total: cartTotal,
@@ -440,9 +431,8 @@ function checkout() {
   
   showNotification(`Commande validée ! Total: ${cartTotal} €`);
   
-  // Vider le panier
+  // Vider le panier après commande
   cart = [];
-  updateCartCount();
   closeCart();
 }
 
@@ -453,14 +443,14 @@ function showNotification(message) {
     position: fixed;
     top: 20px;
     right: 20px;
-    background: #28a745;
-    color: white;
+    background: linear-gradient(135deg, #00ff04, #00cc03);
+    color: #000;
     padding: 1rem 2rem;
-    border-radius: 8px;
+    border-radius: 10px;
     font-weight: bold;
     z-index: 1000;
     animation: slideInRight 0.3s ease-out;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 10px 25px rgba(0, 255, 4, 0.3);
   `;
   
   notification.textContent = message;
@@ -469,14 +459,12 @@ function showNotification(message) {
   setTimeout(() => {
     notification.style.animation = 'slideOutRight 0.3s ease-in';
     setTimeout(() => {
-      if (document.body.contains(notification)) {
-        document.body.removeChild(notification);
-      }
+      document.body.removeChild(notification);
     }, 300);
   }, 3000);
 }
 
-// Styles pour les animations
+// Styles pour les animations de notification
 const style = document.createElement('style');
 style.textContent = `
   @keyframes slideInRight {
