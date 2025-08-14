@@ -32,7 +32,6 @@
     </nav>
   </header>
   
-  <main>
   <section class="container">
     <section class="hero">
       <h1>Custom tes sneakers</h1>
@@ -42,29 +41,29 @@
     <button class="btn"><a href="#sneakers">Découvrir</a></button>
   </section>
     
-       <section class="how-it-works">
+  <main>
+    <section class="how-it-works">
       <h3>Comment ça marche ?</h3>
-      <p>Découvrez les étapes pour personnaliser vos sneakers.</p>
-      <section id="steps-carousel">
-        <video class="carousel-bg-video" src="assets/1.mp4" autoplay loop muted playsinline></video>
-        <video class="carousel-bg-video" src="assets/2.mp4" autoplay loop muted playsinline
-          style="display: none;"></video>
-        <video class="carousel-bg-video" src="assets/3.mp4" autoplay loop muted playsinline
-          style="display: none;"></video>
-        <video class="carousel-bg-video" src="assets/4.mp4" autoplay loop muted playsinline
-          style="display: none;"></video>
-        <div class="step-content">
-          <div class="step-info">
-            <div class="step-number">1</div>
-            <p class="step-text">Je sélectionne la marque de la chaussure</p>
-            <div class="step-controls">
-              <button id="prev-step">←</button>
-              <button id="next-step">→</button>
-            </div>
-          </div>
+      <div class="steps">
+        <div class="step">
+          <div class="step-number">1</div>
+          <p>Je choisis la marque de la paire de sneakers</p>
         </div>
-      </section>
+        <div class="step">
+          <div class="step-number">2</div>
+          <p>Je choisis la personnalisation</p>
+        </div>
+        <div class="step">
+          <div class="step-number">3</div>
+          <p>La paire est confiée à un graffeur qui va customiser la paire</p>
+        </div>
+        <div class="step">
+          <div class="step-number">4</div>
+          <p>Elle est expédiée</p>
+        </div>
+      </div>
     </section>
+  </main>
 
 <section class="carousel-section">
   <h3>Nos créations</h3>
@@ -119,7 +118,6 @@
     </div>
   </div>
 </section>
-</main>
   
   <footer class="footer">
     <div class="footer-content">
@@ -130,7 +128,5 @@
   </footer>
   
   <script type="module" src="./src/main.js"></script>
-  <script type="module" src="./src/carousel.js"></script>
-  
 </body>
 </html>
