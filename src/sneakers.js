@@ -20,48 +20,48 @@ const modelsData = {
   nike: [
     {
       name: 'Air Jordan',
-      image: 'https://images.pexels.com/photos/2529148/pexels-photo-2529148.jpeg?auto=compress&cs=tinysrgb&w=400',
+      image: './assets/modele/nike/air-jordan.jpg',
       description: 'Légendaire et iconique'
     },
     {
       name: 'Air Force One',
-      image: 'https://images.pexels.com/photos/1598505/pexels-photo-1598505.jpeg?auto=compress&cs=tinysrgb&w=400',
+      image: './assets/modele/nike/air-force-one.jpg',
       description: 'Classique intemporel'
     }
   ],
   adidas: [
     {
       name: 'Stan Smith',
-      image: 'https://images.pexels.com/photos/1464625/pexels-photo-1464625.jpeg?auto=compress&cs=tinysrgb&w=400',
+      image: './assets/modele/adidas/stan-smith.jpg',
       description: 'Élégance minimaliste'
     },
     {
       name: 'Campus 00',
-      image: 'https://images.pexels.com/photos/1456706/pexels-photo-1456706.jpeg?auto=compress&cs=tinysrgb&w=400',
+      image: './assets/modele/adidas/campus-00.jpg',
       description: 'Style rétro moderne'
     }
   ],
   converse: [
     {
       name: 'Chuck Taylor',
-      image: 'https://images.pexels.com/photos/2529148/pexels-photo-2529148.jpeg?auto=compress&cs=tinysrgb&w=400',
+      image: './assets/modele/converse/chuck-taylor.jpg',
       description: 'L\'original authentique'
     },
     {
       name: 'Plateforms',
-      image: 'https://images.pexels.com/photos/1598505/pexels-photo-1598505.jpeg?auto=compress&cs=tinysrgb&w=400',
+      image: './assets/modele/converse/plateforms.jpg',
       description: 'Hauteur et style'
     }
   ],
   vans: [
     {
       name: 'Slip On',
-      image: 'https://images.pexels.com/photos/1464625/pexels-photo-1464625.jpeg?auto=compress&cs=tinysrgb&w=400',
+      image: './assets/modele/vans/slip-on.jpg',
       description: 'Simplicité et confort'
     },
     {
       name: 'Old School',
-      image: 'https://images.pexels.com/photos/1456706/pexels-photo-1456706.jpeg?auto=compress&cs=tinysrgb&w=400',
+      image: './assets/modele/vans/old-school.jpg',
       description: 'Skate authentique'
     }
   ]
