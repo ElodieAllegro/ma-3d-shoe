@@ -20,48 +20,48 @@ const modelsData = {
   nike: [
     {
       name: 'Air Jordan',
-      image: './assets/modele/nike/air-jordan.jpg',
+      image: './assets/modele/nike/Jumpman_logo.avif',
       description: 'Légendaire et iconique'
     },
     {
       name: 'Air Force One',
-      image: './assets/modele/nike/air-force-one.jpg',
+      image: './assets/modele/nike/nike-air-force-1-logo-png_seeklogo-423771.avif',
       description: 'Classique intemporel'
     }
   ],
   adidas: [
     {
       name: 'Stan Smith',
-      image: './assets/modele/adidas/stan-smith.jpg',
+      image: './assets/modele/adidas/stansmith.avif',
       description: 'Élégance minimaliste'
     },
     {
       name: 'Campus 00',
-      image: './assets/modele/adidas/campus-00.jpg',
+      image: './assets/modele/adidas/logo_adidas.avif',
       description: 'Style rétro moderne'
     }
   ],
   converse: [
     {
       name: 'Chuck Taylor',
-      image: './assets/modele/converse/chuck-taylor.jpg',
+      image: './assets/modele/converse/Converse-Symbole.avif',
       description: 'L\'original authentique'
     },
     {
       name: 'Plateforms',
-      image: './assets/modele/converse/plateforms.jpg',
+      image: './assets/modele/converse/Converse-Symbole.avif',
       description: 'Hauteur et style'
     }
   ],
   vans: [
     {
       name: 'Slip On',
-      image: './assets/modele/vans/slip-on.jpg',
+      image: './assets/modele/vans/Vans-Emblem.avif',
       description: 'Simplicité et confort'
     },
     {
       name: 'Old School',
-      image: './assets/modele/vans/old-school.jpg',
+      image: './assets/modele/vans/Vans-Emblem.avif',
       description: 'Skate authentique'
     }
   ]
