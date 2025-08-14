@@ -140,6 +140,31 @@
           <div class="main-image">
             <img id="main-shoe-image" src="https://images.pexels.com/photos/1464625/pexels-photo-1464625.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Chaussure principale">
           </div>
+          <div class="thumbnails">
+            <div class="thumbnail active">
+              <img src="https://images.pexels.com/photos/1464625/pexels-photo-1464625.jpeg?auto=compress&cs=tinysrgb&w=150" alt="Vue 1">
+            </div>
+            <div class="thumbnail">
+              <img src="https://images.pexels.com/photos/1464625/pexels-photo-1464625.jpeg?auto=compress&cs=tinysrgb&w=150" alt="Vue 2">
+            </div>
+            <div class="thumbnail">
+              <img src="https://images.pexels.com/photos/1464625/pexels-photo-1464625.jpeg?auto=compress&cs=tinysrgb&w=150" alt="Vue 3">
+            </div>
+            <div class="thumbnail">
+              <img src="https://images.pexels.com/photos/1464625/pexels-photo-1464625.jpeg?auto=compress&cs=tinysrgb&w=150" alt="Vue 4">
+            </div>
+            <div class="thumbnail">
+              <img src="https://images.pexels.com/photos/1464625/pexels-photo-1464625.jpeg?auto=compress&cs=tinysrgb&w=150" alt="Vue 5">
+            </div>
+            <div class="more-btn">
+              <span>▼</span>
+            </div>
+          </div>
+          
+          <!-- Image principale -->
+          <div class="main-image">
+            <img id="main-shoe-image" src="https://images.pexels.com/photos/1464625/pexels-photo-1464625.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Chaussure principale">
+          </div>
         </div>
 
         <!-- Panel de customisation à droite -->
@@ -154,11 +179,6 @@
             <div class="rating">
               <span>★★★★</span>
             </div>
-          </div>
-
-          <div class="customization-options">
-            <!-- Étape 1: Taille -->
-            <div class="option-group">
               <label>Étape 1: Choisissez votre taille</label>
               <select id="shoe-size" class="size-select">
                 <option value="35">35</option>
@@ -196,6 +216,46 @@
                   <div class="pattern-preview" style="background: radial-gradient(circle, #4a90e2 20%, transparent 20%), radial-gradient(circle, #4a90e2 20%, transparent 20%); background-size: 10px 10px; background-position: 0 0, 5px 5px;"></div>
                 </div>
                 <div class="pattern-circle" data-pattern="floral">
+          <div class="customization-options">
+            <!-- Étape 1: Taille -->
+            <div class="option-group">
+              <label>Étape 1: Choisissez votre taille</label>
+              <select id="shoe-size" class="size-select">
+                <option value="35">35</option>
+                <option value="36">36</option>
+                <option value="37">37</option>
+                <option value="38" selected>38</option>
+                <option value="39">39</option>
+                <option value="40">40</option>
+                <option value="41">41</option>
+                <option value="42">42</option>
+                <option value="43">43</option>
+                <option value="44">44</option>
+                <option value="45">45</option>
+                <option value="46">46</option>
+              </select>
+                  <div class="pattern-preview" style="background: repeating-linear-gradient(45deg, #333, #333 2px, #666 2px, #666 4px);"></div>
+              </div>
+            <!-- Étape 2: Couleur -->
+            <div class="option-group">
+              <label>Étape 2: Choisissez la couleur</label>
+              <div class="color-options">
+                <button class="color-btn active" data-color="white" style="background: white; border: 2px solid #ddd;">Blanc</button>
+                <button class="color-btn" data-color="black" style="background: black; color: white;">Noir</button>
+              </div>
+                <div class="lace-circle" data-lace="blue" style="background: #2196f3;"></div>
+              </div>
+            <!-- Étape 3: Motif -->
+            <div class="option-group">
+              <label>Étape 3: Choisissez votre motif</label>
+              <div class="pattern-options">
+                <div class="pattern-circle active" data-pattern="none">
+                  <div class="pattern-preview" style="background: linear-gradient(45deg, #f0f0f0, #e0e0e0);"></div>
+                </div>
+                <div class="pattern-circle" data-pattern="dots">
+                  <div class="pattern-preview" style="background: radial-gradient(circle, #4a90e2 20%, transparent 20%), radial-gradient(circle, #4a90e2 20%, transparent 20%); background-size: 10px 10px; background-position: 0 0, 5px 5px;"></div>
+                </div>
+                <div class="pattern-circle" data-pattern="floral">
                   <div class="pattern-preview" style="background: linear-gradient(45deg, #e74c3c, #f39c12, #e74c3c);"></div>
                 </div>
                 <div class="pattern-circle" data-pattern="geometric">
@@ -204,9 +264,9 @@
                 <div class="pattern-circle" data-pattern="carbon">
                   <div class="pattern-preview" style="background: repeating-linear-gradient(45deg, #333, #333 2px, #666 2px, #666 4px);"></div>
                 </div>
-              </div>
             </div>
 
+            <button class="add-to-cart-btn" onclick="addToCart()">
             <!-- Étape 4: Lacets -->
             <div class="option-group">
               <label>Étape 4: Choisissez vos lacets</label>
