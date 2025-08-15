@@ -2,6 +2,7 @@
 let currentStep = 1;
 let selectedBrand = '';
 let selectedModel = '';
+let selectedHeight = '';
 let customization = {
   size: 38,
   shoeColor: '#000000',
@@ -100,6 +101,14 @@ function initializeEventListeners() {
     card.addEventListener('click', function() {
       const brand = this.dataset.brand;
       selectBrand(brand);
+    });
+  });
+
+  // Sélection des hauteurs
+  document.querySelectorAll('.height-card').forEach(card => {
+    card.addEventListener('click', function() {
+      const height = this.dataset.height;
+      selectHeight(height);
     });
   });
 
@@ -237,6 +246,21 @@ function selectModel(modelName, modelImage) {
   setTimeout(() => {
     goToStep(3);
     updateSummary();
+  }, 300);
+}
+
+// Sélection de hauteur
+function selectHeight(height) {
+  selectedHeight = height;
+  
+  // Animation de transition
+  const currentSection = document.getElementById('step-3');
+  currentSection.style.opacity = '0';
+  currentSection.style.transform = 'translateY(-20px)';
+  
+  setTimeout(() => {
+    goToStep(4);
+    updateSummary();
     updateColorPreview();
   }, 300);
 }
@@ -340,6 +364,7 @@ function addToCart() {
     id: Date.now(), // ID unique basé sur le timestamp
     brand: selectedBrand,
     model: selectedModel,
+    height: selectedHeight,
     size: customization.size,
     shoeColor: customization.shoeColor,
     shoeColorName: document.querySelector('#shoe-colors .color-swatch.active')?.dataset.name || 'Noir',
@@ -397,6 +422,7 @@ function openCart() {
         <div class="cart-item-info">
           <h4>${item.brand} ${item.model}</h4>
           <p>Pointure: ${item.size}</p>
+          <p>Hauteur: ${item.height === 'low' ? 'Basse' : 'Montante'}</p>
           <p>Couleur: ${item.shoeColorName}</p>
           <p>Lacets: ${item.lacetsColorName}</p>
           <p>Motif: ${item.patternName}</p>

@@ -45,6 +45,10 @@
         </div>
         <div class="progress-step" data-step="3">
           <div class="step-circle">3</div>
+          <span>Hauteur</span>
+        </div>
+        <div class="progress-step" data-step="4">
+          <div class="step-circle">3</div>
           <span>Customisation</span>
         </div>
       </div>
@@ -113,8 +117,41 @@
       </div>
     </section>
 
-    <!-- Étape 3: Customisation -->
+    <!-- Étape 3: Choix de la hauteur -->
     <section class="step-section" id="step-3">
+      <div class="step-header">
+        <h1>Choisissez la hauteur</h1>
+        <p>Sélectionnez si vous préférez une version montante ou basse</p>
+        <button class="back-btn" onclick="goToStep(2)">← Retour aux modèles</button>
+      </div>
+      
+      <div class="height-grid">
+        <div class="height-card" data-height="low">
+          <div class="card-image">
+            <img src="./assets/height/low-shoe.avif" alt="Chaussure basse">
+          </div>
+          <div class="card-content">
+            <h3>Basse</h3>
+            <p>Style classique et polyvalent</p>
+            <div class="price-tag">Prix de base</div>
+          </div>
+        </div>
+
+        <div class="height-card" data-height="high">
+          <div class="card-image">
+            <img src="./assets/height/high-shoe.avif" alt="Chaussure montante">
+          </div>
+          <div class="card-content">
+            <h3>Montante</h3>
+            <p>Support et style urbain</p>
+            <div class="price-tag">Prix de base</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Étape 3: Customisation -->
+    <section class="step-section" id="step-4">
       <div class="step-header">
         <div class="price-display">
           <span class="price-label">Prix total :</span>
@@ -122,7 +159,7 @@
         </div>
         <h1>Customisez votre sneaker</h1>
         <p>Personnalisez votre paire selon vos goûts</p>
-        <button class="back-btn" onclick="goToStep(2)">← Retour aux modèles</button>
+        <button class="back-btn" onclick="goToStep(3)">← Retour à la hauteur</button>
       </div>
       
       <div class="customization-container">
